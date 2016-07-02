@@ -153,52 +153,52 @@ You can add a property `tableName+'Id'` manually to make a tayr belong to anothe
 
 `.setParent(parent(tayr),callback)`: the parent should be a tayr
 
-    ```javascript
-        // comment = { id: 1, text: 'I like it', posted: 2147483647 }
-        // user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
-        comment.setParent(user,function() {
-            console.log(comment);
-        });
-        // output: { id: 1, text: 'I like it', posted: 2147483647, userId: 7 }
-    ```
+```javascript
+    // comment = { id: 1, text: 'I like it', posted: 2147483647 }
+    // user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
+    comment.setParent(user,function() {
+        console.log(comment);
+    });
+    // output: { id: 1, text: 'I like it', posted: 2147483647, userId: 7 }
+```
 And you can get the parent using this:
 
 `.getParent(table,callback)`: it returns the parent tayr in callback:
 
-    ```javascript
-        // comment = { id: 1, text: 'I like it', posted: 2147483647, userId: 7 }
-        comment.getParent('user',function(user) {
-            console.log(user);
-        });
-        // output: { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
-    ```
+```javascript
+    // comment = { id: 1, text: 'I like it', posted: 2147483647, userId: 7 }
+    comment.getParent('user',function(user) {
+        console.log(user);
+    });
+    // output: { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
+```
 If you have the parent and you want to append children to it do that:
 
 `.addChildren(table,array,callback)`: it returns the children after being stored:
 
-    ```javascript
-        // user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
-        // comments = [ { id: 1, text: 'I like it', posted: 2147483647, userId: 7 },
-        // { id: 2, text: 'wonderful', posted: 2147483647, userId: null } ]
-        user.addChildren('comment',comments,function(res) {
-            comments = res;
-            console.log(comments);
-        });
-        // output: [ { id: 0, text: 'I like it', posted: 2147483647, userId: 7 },
-        // { id: 2, text: 'wonderful', posted: 2147483647, userId: 7 } ]
-    ```
+```javascript
+    // user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
+    // comments = [ { id: 1, text: 'I like it', posted: 2147483647, userId: 7 },
+    // { id: 2, text: 'wonderful', posted: 2147483647, userId: null } ]
+    user.addChildren('comment',comments,function(res) {
+        comments = res;
+        console.log(comments);
+    });
+    // output: [ { id: 0, text: 'I like it', posted: 2147483647, userId: 7 },
+    // { id: 2, text: 'wonderful', posted: 2147483647, userId: 7 } ]
+```
 And to get children:
 
 `getChildren(table,callback)`: it returns children in an array of tayrs in callback:
 
-    ```javascript
-        // user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
-        user.getChildren('comment',function(comments) {
-            console.log(comments);
-        });
-        // output: [ { id: 0, text: 'I like it', posted: 2147483647, userId: 7 },
-        // { id: 2, text: 'wonderful', posted: 2147483647, userId: 7 } ]
-    ```
+```javascript
+    // user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
+    user.getChildren('comment',function(comments) {
+        console.log(comments);
+    });
+    // output: [ { id: 0, text: 'I like it', posted: 2147483647, userId: 7 },
+    // { id: 2, text: 'wonderful', posted: 2147483647, userId: 7 } ]
+```
 ## Many to many (Cousins)
 Don't worry about creating an intermediate table and making relations between these three tables, Tayr will do all the stuff for you, just use:
 
