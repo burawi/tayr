@@ -1,14 +1,14 @@
 {
   "name": "Tayr",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "an easy on-the-fly ORM for NodeJS, inspired by RedBeanPHP",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository" : {
-      "type" : "git",
-      "url" : "https://github.com/burawi/tayr"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/burawi/tayr"
   },
   "author": "Abu Rawi",
   "license": "ISC",
