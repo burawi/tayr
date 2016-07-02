@@ -42,7 +42,7 @@ You can access and change a tayr table by its `table` property:
 Creating and updating is done using `.store()` function, if the tayr has an `id` that exists in the table it will update the row, else it will add a new row and affect an `id` to the tayr.
 ```javascript
     user.store(function(){
-        console.log(user);+
+        console.log(user);
     });
     //output: { name: 'Muhamad', age: '63', registeredAt: 1467137605631, id: 6 }
 ```
