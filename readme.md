@@ -7,6 +7,7 @@ Install the module with:
 ## Connect to DB
 The way to connect to DB is quite similar to mysql module:
 
+```javascript
     var tayr = require('Tayr');
     var T = new tayr({
         host: 'hostname',
@@ -14,6 +15,7 @@ The way to connect to DB is quite similar to mysql module:
         password: 'password',
         database: 'databaseName'
     });
+```
 # CRUD
 ## Initialize a tayr
 You decalre a tayr using two arguments:
@@ -22,11 +24,13 @@ You decalre a tayr using two arguments:
 2. data: *[object]* an object with the tayr properties *(optional)*
 
 
+```javascript
     var user = new T.tayr('user',{
         name: 'Muhamad',
         age: '63',
         registeredAt: new Date()
     });
+```
 ## Create/Update
 Creating and updating is done using `.store()` function, if the tayr has an `id` that exists in the table it will update the row, else it will add a new row and affect an `id` to the tayr.
 ```javascript
@@ -90,6 +94,7 @@ To read data from DB there are 3 ways:
         // output: { name: 'Omar', age: '53', registeredAt: 1467137605631, id: 6 }
     ```
 - `find(table,condition([sql,data]),callback)`: this function returns an array of tayrs from the given table with the given conditions:
+
     ```javascript
         T.find('user',['age > ?',40],function(users) {
             console.log(users);
@@ -98,6 +103,7 @@ To read data from DB there are 3 ways:
         // { id: 8, name: 'Ussama', age: '44', registeredAt: null } ]
     ```
     If you want to **find all** rows, don't put conditions:
+
     ```javascript
         T.find('user',function(users) {
             console.log(users);
@@ -107,6 +113,7 @@ To read data from DB there are 3 ways:
         // { id: 8, name: 'Ussama', age: '44', registeredAt: null } ]
     ```
 - `findOne(table,condition([sql,data]),callback)`: this function works the same as `find` but returns only one tayr:
+
     ```javascript
         T.findOne('user',['age > ?',40],function(users) {
             console.log(users);
@@ -117,12 +124,14 @@ To read data from DB there are 3 ways:
 There are two ways to delete records from DB:
 
 - `.delete(callback)`: this function deletes the tayr:
+
     ```javascript
         // user = { id: 6, name: 'Omar', age: '53', registeredAt: 2147483647 }
         user.delete();
         // And it's done(gone)!
     ```
 - `delete(table,condition([sql,data]),callback)`: this function deletes from the given table with the given conditions:
+
     ```javascript
         T.delete('user',['age > ?',40],function() {
             T.find('user',function(users) {
