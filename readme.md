@@ -31,6 +31,13 @@ You decalre a tayr using two arguments:
         registeredAt: new Date()
     });
 ```
+### Change tayr table
+You can access and change a tayr table by its `table` property:
+```javascript
+    console.log(user.table);
+    // output: user
+```
+
 ## Create/Update
 Creating and updating is done using `.store()` function, if the tayr has an `id` that exists in the table it will update the row, else it will add a new row and affect an `id` to the tayr.
 ```javascript
@@ -140,3 +147,99 @@ There are two ways to delete records from DB:
         });
         // output: [ { id: 7, name: 'AbuBakr', age: '36', registeredAt: null } ]
     ```
+# Relations (Family)
+## One to many (Parent & Children)
+You can add a property `tableName+'Id'` manually to make a tayr belong to another tayr. Or you can use this function:
+
+`.setParent(parent(tayr),callback)`: the parent should be a tayr
+
+    ```javascript
+        // comment = { id: 1, text: 'I like it', posted: 2147483647 }
+        // user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
+        comment.setParent(user,function() {
+            console.log(comment);
+        });
+        // output: { id: 1, text: 'I like it', posted: 2147483647, userId: 7 }
+    ```
+And you can get the parent using this:
+
+`.getParent(table,callback)`: it returns the parent tayr in callback:
+
+    ```javascript
+        // comment = { id: 1, text: 'I like it', posted: 2147483647, userId: 7 }
+        comment.getParent('user',function(user) {
+            console.log(user);
+        });
+        // output: { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
+    ```
+If you have the parent and you want to append children to it do that:
+
+`.addChildren(table,array,callback)`: it returns the children after being stored:
+
+    ```javascript
+        // user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
+        // comments = [ { id: 1, text: 'I like it', posted: 2147483647, userId: 7 },
+        // { id: 2, text: 'wonderful', posted: 2147483647, userId: null } ]
+        user.addChildren('comment',comments,function(res) {
+            comments = res;
+            console.log(comments);
+        });
+        // output: [ { id: 0, text: 'I like it', posted: 2147483647, userId: 7 },
+        // { id: 2, text: 'wonderful', posted: 2147483647, userId: 7 } ]
+    ```
+And to get children:
+
+`getChildren(table,callback)`: it returns children in an array of tayrs in callback:
+
+    ```javascript
+        // user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
+        user.getChildren('comment',function(comments) {
+            console.log(comments);
+        });
+        // output: [ { id: 0, text: 'I like it', posted: 2147483647, userId: 7 },
+        // { id: 2, text: 'wonderful', posted: 2147483647, userId: 7 } ]
+    ```
+## Many to many (Cousins)
+Don't worry about creating an intermediate table and making relations between these three tables, Tayr will do all the stuff for you, just use:
+
+*(for this part I wont show examples of code, you understood how it works I guess)*
+- `.setCousins(table,array,callback)`: this function **deletes** all the recorded cousins and stores the given ones, and returns them in callback.
+- `.addCousins(table,array,callback)`: works the same as `.setCousins` but without deleting the recorded cousins.
+- `.addCousin(cousin(tayr),callback)`: add a single cousin. the given cousin must be a tayr.
+- `.removeCousin(cousin,callback)`: deletes the relation between the cousins. the given cousin must be a tayr.
+- `.getCousins(table,callback)`: returns the cousins list from the given table in the callback.
+
+*Note: In case you want to know whats the intermediate table name between two tables you can use this:*
+```javascript
+    T.getUncleTableName(table1,table2);
+    // for table1 = 'user' and table2 = 'tag'
+    // it returns 'tag_user'
+```
+# Datatypes
+These are the supported types, any other type can cause errors.
+- `integer`: INT
+- `decimal`: DOUBLE
+- `boolean`: BOOL
+- `string` : VARCHAR (if length < 256) | TEXT (if length > 255)
+- `Date`   : BIGINT (in milliseconds)
+
+# Helpers
+
+`exec(sql,data,callback)`: this function allows you to execute any MySql request:
+```javascript
+    T.exec('SELECT name FROM user WHERE age < ?',[40],function(res) {
+        console.log(res);
+    });
+    // output: [ RowDataPacket { name: 'AbuBakr' } ]
+```
+`arrayToTayrs(table,array)`: this function transforms an array of simple objects to an array of tayrs:
+```javascript
+    var comments = [
+        {text: 'First comment!', postedAt: new Date()},
+        {text: 'Stop these stupid comments please!', postedAt: new Date()},
+        {text: 'Go ****', postedAt: new Date()},
+    ];
+    console.log(comments[0].table); // output: undefined
+    comments = T.arrayToTayrs('comment',comments);
+    console.log(comments[0].table); // output: comments
+```

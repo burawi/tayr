@@ -61,9 +61,9 @@ module.exports = function(dbData) {
         })
     }
 
-    T.tayr.prototype.getCousins = function(table, callback) {// TODO:
+    T.tayr.prototype.getCousins = function(table, callback) {
         var tayr = this;
-        var uncleTable = getUncleTableName(tayr.table,table);
+        var uncleTable = T.getUncleTableName(tayr.table,table);
         var sql = 'SELECT c.* FROM '+uncleTable+' as ut, '+table+' as c WHERE ut.'+tayr.table+'Id = ? and ut.'+table+'Id = c.id';
         T.exec(sql, [tayr.id], function(cousins) {
             callback(T.arrayToTayrs(table,cousins));
@@ -73,7 +73,7 @@ module.exports = function(dbData) {
     T.tayr.prototype.setCousins = function(table,array, callback) {
         var tayr = this;
         T.storeRows(table,array,function(cousins){
-            var uncleTable = getUncleTableName(table,tayr.table);
+            var uncleTable = T.getUncleTableName(table,tayr.table);
             var uncles = [];
             for (var i = 0; i < cousins.length; i++) {
                 var uncle = {};
@@ -99,7 +99,7 @@ module.exports = function(dbData) {
     T.tayr.prototype.addCousins = function(table,array, callback) {
         var tayr = this;
         T.storeRows(table,array,function(cousins){
-            var uncleTable = getUncleTableName(table,tayr.table);
+            var uncleTable = T.getUncleTableName(table,tayr.table);
             var uncles = [];
             for (var i = 0; i < cousins.length; i++) {
                 var uncle = {};
@@ -116,7 +116,7 @@ module.exports = function(dbData) {
     T.tayr.prototype.addCousin = function(cousin, callback) {
         var tayr = this;
         cousin.store(function(){
-            var uncleTable = getUncleTableName(cousin.table,tayr.table);
+            var uncleTable = T.getUncleTableName(cousin.table,tayr.table);
             var uncle = new T.tayr(uncleTable);
             uncle[tayr.table+'Id'] = tayr.id;
             uncle[cousin.table+'Id'] = cousin.id;
@@ -128,7 +128,7 @@ module.exports = function(dbData) {
 
     T.tayr.prototype.removeCousin = function(cousin, callback) {
         var tayr = this;
-        var uncleTable = getUncleTableName(tayr.table,cousin.table);
+        var uncleTable = T.getUncleTableName(tayr.table,cousin.table);
         var condition = tayr.table+'Id = ? AND '+cousin.table+'Id = ?';
         T.delete(uncleTable,[condition,[tayr.id,cousin.id]],function(){
             callback();
@@ -327,7 +327,7 @@ module.exports = function(dbData) {
         return (tayr !== undefined && tayr.table !== undefined && tayr instanceof T.tayr);
     }
 
-    function getUncleTableName(t1,t2){
+    T.getUncleTableName = function(t1,t2){
         var array = [t1,t2];
         return array.sort().join('_');
     }
