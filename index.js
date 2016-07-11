@@ -269,6 +269,21 @@ module.exports = function(dbData) {
         }
     }
 
+    T.count = function(table, condition, callback) {
+        if (table !== undefined) {
+            var sql = 'SELECT COUNT(*) FROM ' + table;
+            if (Array.isArray(condition) && condition[0] != '') {
+                sql += ' WHERE ' + condition[0];
+            } else if (condition !== undefined && typeof condition == "function") {
+                callback = condition;
+            }
+            connection.query(sql,condition[1], function(err, res) {
+                if (err) throw err;
+                callback(res[0]['COUNT(*)']);
+            });
+        }
+    }
+
     T.delete = function(table, condition, callback){
         if (table !== undefined) {
             var sql = 'DELETE IGNORE FROM ' + table;

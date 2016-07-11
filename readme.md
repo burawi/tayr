@@ -225,6 +225,18 @@ These are the supported types, any other type can cause errors.
 
 # Helpers
 
+## Counting
+
+`count(sql,condition([sql,data]),callback)`: this function returns the number of rows found, in the callback:
+```javascript
+    T.count('user',['age < ?',[40]], function(res) {
+        console.log(res);
+    });
+    // output: 1
+```
+
+## Executing MySQL
+
 `exec(sql,data,callback)`: this function allows you to execute any MySql request:
 ```javascript
     T.exec('SELECT name FROM user WHERE age < ?',[40],function(res) {
@@ -232,6 +244,9 @@ These are the supported types, any other type can cause errors.
     });
     // output: [ RowDataPacket { name: 'AbuBakr' } ]
 ```
+
+## Converting to tayrs
+
 `arrayToTayrs(table,array)`: this function transforms an array of simple objects to an array of tayrs:
 ```javascript
     var comments = [
