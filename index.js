@@ -269,6 +269,33 @@ module.exports = function(dbData) {
         }
     }
 
+    T.findMostFecund = function(table, data, callback) {// TODO: add to documentation
+        if (table !== undefined) {
+            var countProp = data.children+'s';
+            var sql = 'SELECT t.*, COUNT(*) as '+countProp+' FROM '+table+' t JOIN '+data.children+' c ON c.'+table+'Id = t.id GROUP BY t.id ORDER BY '+countProp+' DESC';
+            if(data.limit !== undefined){
+                sql += ' LIMIT '+ data.limit;
+            }
+            T.exec(sql,[],function(res) {
+                callback(res);
+            });
+        }
+    }
+
+    T.findMostCousined = function(table, data, callback) {// TODO: add to documentation
+        if (table !== undefined) {
+            var uncleTable = T.getUncleTableName(table,data.cousin);
+            var countProp = data.cousin+'s';
+            var sql = 'SELECT t.*, COUNT(*) as '+countProp+' FROM '+table+' t JOIN '+uncleTable+' c ON c.'+table+'Id = t.id GROUP BY t.id ORDER BY '+countProp+' DESC';
+            if(data.limit !== undefined){
+                sql += ' LIMIT '+ data.limit;
+            }
+            T.exec(sql,[],function(res) {
+                callback(res);
+            });
+        }
+    }
+
     T.count = function(table, condition, callback) {
         if (table !== undefined) {
             var sql = 'SELECT COUNT(*) FROM ' + table;
