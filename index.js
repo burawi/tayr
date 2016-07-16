@@ -235,10 +235,16 @@ module.exports = function(dbData) {
         if (table !== undefined) {
             var sql = 'SELECT * FROM ' + table;
             if (Array.isArray(condition) && condition[0] != '') {
-                sql += ' WHERE ' + condition[0];
+                var wheresBlock = getWheresBlock(condition[0]);
+                if(/(=|>|<|LIKE|BETWEEN|IS|IN|LEAST|COALESCE|INTERVAL|GRETEST|STRCMP)/i.test(wheresBlock)){
+                    sql += ' WHERE ' + condition[0];
+                } else {
+                    sql += ' '+condition[0];
+                }
             } else if (condition !== undefined && typeof condition == "function") {
                 callback = condition;
             }
+            console.log(sql);
             connection.query(sql,condition[1], function(err, res) {
                 if (err) throw err;
                 if (res.length > 0) {
@@ -254,7 +260,12 @@ module.exports = function(dbData) {
         if (table !== undefined) {
             var sql = 'SELECT * FROM ' + table;
             if (Array.isArray(condition) && condition[0] != '') {
-                sql += ' WHERE ' + condition[0];
+                var wheresBlock = getWheresBlock(condition[0]);
+                if(/(=|>|<|LIKE|BETWEEN|IS|IN|LEAST|COALESCE|INTERVAL|GRETEST|STRCMP)/i.test(wheresBlock)){
+                    sql += ' WHERE ' + condition[0];
+                } else {
+                    sql += ' '+condition[0];
+                }
             } else if (condition !== undefined && typeof condition == "function") {
                 callback = condition;
             }
@@ -358,6 +369,21 @@ module.exports = function(dbData) {
             res.push(array[i]);
         }
         return res;
+    }
+
+    function getWheresBlock(condition) {
+        var wheresEnd = condition.length - 1;
+        var reOrderBy = /order by/i;
+        var reLimit = /limit/i;
+        var orderByMatch = reOrderBy.exec(condition);
+        var limitMatch = reLimit.exec(condition);
+        if(orderByMatch){
+            wheresEnd = orderByMatch.index;
+        }else if(limitMatch){
+            wheresEnd = limitMatch.index;
+        }
+        var wheresBlock = condition.slice(0,wheresEnd);
+        return wheresBlock;
     }
 
     function getInsertSql(tayr) {
