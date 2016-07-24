@@ -31,7 +31,7 @@ To declare a tayr:
 
     **Arguments:**
 
-    table: *[string] (required)* the table name in which you want to store the tayr.
+    table: *[string] --required* the table name in which you want to store the tayr.
 
     properties: *[object]* an object with the tayr properties.
 
@@ -117,9 +117,9 @@ To read data from DB there are 3 ways:
 
     **Arguments:**
 
-    table: *[string] (required)* The table of the wanted tayr.
+    table: *[string] --required* The table of the wanted tayr.
 
-    id: *[integer] (required)* The id of the wanted tayr.
+    id: *[integer] --required* The id of the wanted tayr.
 
     ```javascript
         T.load('user',6).then(function(user){
@@ -132,7 +132,7 @@ To read data from DB there are 3 ways:
 
     **Arguments:**
 
-    table: *[string] (required)* The table of the wanted tayr.
+    table: *[string] --required* The table of the wanted tayr.
 
     data: *[object]*
     - sql: *[string]* All the sql you want to put after "WHERE" *(It's recommended to not put variables in this string, write `?` instead)*
@@ -191,7 +191,7 @@ There are two ways to delete records from DB:
 
     **Arguments:**
 
-    table: *[string] (required)* The wanted table.
+    table: *[string] --required* The wanted table.
 
     data: *[object]*
     - sql: *[string]* All the sql you want to put after "WHERE" *(It's recommended to not put variables in this string, write `?` instead)*
@@ -213,7 +213,7 @@ You can add a property `tableName+'Id'` manually to make a tayr belong to anothe
 
     **Arguments:**
 
-    parent: *[tayr] (required)* The tayr to be set as parent.
+    parent: *[tayr] --required* The tayr to be set as parent.
 
     ```javascript
         // comment = { id: 1, text: 'I like it', posted: 2147483647 }
@@ -229,7 +229,7 @@ And you can get the parent using this:
 
     **Arguments:**
 
-    table: *[string] (required)* The parent tayr table.
+    table: *[string] --required* The parent tayr table.
 
     ```javascript
         // comment = { id: 1, text: 'I like it', posted: 2147483647, userId: 7 }
@@ -244,9 +244,9 @@ If you have the parent and you want to append children to it do that:
 
     **Arguments:**
 
-    table: *[string] (required)* The children's table.
+    table: *[string] --required* The children's table.
 
-    array: *[array] (required)*  The objects to be stored as children.
+    array: *[array] --required*  The objects to be stored as children.
 
     ```javascript
     // user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
@@ -265,7 +265,7 @@ And to get children:
 
     **Arguments:**
 
-    table: *[string] (required)*  The children's table.
+    table: *[string] --required*  The children's table.
 
     ```javascript
         // user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }
@@ -285,7 +285,7 @@ In Tayr the many to many related tables are called cousins:
 
     **Arguments:**
 
-    cousinsTable: *[string] (required)* The cousins table name.
+    cousinsTable: *[string] --required* The cousins table name.
 
     ```javascript
     T.load('film',790).then(function (film) {
@@ -301,9 +301,9 @@ In Tayr the many to many related tables are called cousins:
 
     **Arguments:**
 
-    cousinsTable: *[string] (required)* The cousins table name.
+    cousinsTable: *[string] --required* The cousins table name.
 
-    newCousins: *[array] (required)* An array of objects(not required to be tayrs).
+    newCousins: *[array] --required* An array of objects(not required to be tayrs).
 
     ```javascript
     T.load('film',790).then(function (film) {
@@ -322,9 +322,9 @@ In Tayr the many to many related tables are called cousins:
 
     **Arguments:**
 
-    cousinsTable: *[string] (required)* The cousins table name.
+    cousinsTable: *[string] --required* The cousins table name.
 
-    newCousins: *[array] (required)* An array of objects(not required to be tayrs).
+    newCousins: *[array] --required* An array of objects(not required to be tayrs).
 
     ```javascript
     T.load('film',790).then(function (film) {
@@ -347,7 +347,7 @@ In Tayr the many to many related tables are called cousins:
 
     **Arguments:**
 
-    cousin: *[tayr] (required)* The cousin to be added.
+    cousin: *[tayr] --required* The cousin to be added.
 
     ```javascript
     T.load('film',790).then(function (film) {
@@ -368,7 +368,7 @@ In Tayr the many to many related tables are called cousins:
 
     **Arguments:**
 
-    cousin: *[tayr] (required)* The cousin to be unrelated.
+    cousin: *[tayr] --required* The cousin to be unrelated.
 
     ```javascript
     T.load('film',790).then(function (film) {
@@ -398,10 +398,10 @@ T.getUncleTableName(table1,table2);
 
     **Arguments:**
 
-    table: *[string] (required)* The table wanted.
+    table: *[string] --required* The table wanted.
 
     data: *[object]*
-    - children: *[string] (required)* The children table name
+    - children: *[string] --required* The children table name
     - as: *[string]* The property name that contains the children's number *|| Default: children+'s'*
     - limit: *[integer]* The limit number of returned rows
     - poorest: *[boolean]* If true the order will be ascending *|| Default: false*
@@ -483,7 +483,7 @@ These are the supported types, any other type can cause errors.
 
     **Arguments:**
 
-    table: *[string] (required)* The table from which it will count.
+    table: *[string] --required* The table from which it will count.
 
     data: *[object]*
     - sql: *[string]* Filter
@@ -502,7 +502,7 @@ These are the supported types, any other type can cause errors.
 
     **Arguments:**
 
-    sql: *[string] (required)* SQL code.
+    sql: *[string] --required* SQL code.
 
     vals: *[array|simple]*  Values that will replace `?` in `sql` property
 
@@ -523,9 +523,9 @@ These are the supported types, any other type can cause errors.
 
     **Arguments:**
 
-    table: *[string] (required)* The table of the future tayrs.
+    table: *[string] --required* The table of the future tayrs.
 
-    array: *[array] (required)* The array of object to be transformed.
+    array: *[array] --required* The array of object to be transformed.
 
     ```javascript
         var comments = [
