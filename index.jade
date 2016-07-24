@@ -1,0 +1,43 @@
+doctype html
+html
+    head
+        title Tayr ORM
+        meta(charset='utf-8')
+        meta(http-equiv='X-UA-Compatible', content='chrome=1')
+        meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+        link(href='https://fonts.googleapis.com/css?family=Galada', rel='stylesheet')
+        link(href='https://fonts.googleapis.com/css?family=Marcellus+SC', rel='stylesheet')
+        link(href='https://fonts.googleapis.com/css?family=Maven+Pro', rel='stylesheet')
+        link(rel='stylesheet', type='text/css', href='css/style.min.css', media='screen')
+        link(rel='stylesheet', type='text/css', href='css/default.css', media='screen')
+        link(rel='stylesheet', type='text/css', href='css/tomorrow.css', media='screen')
+        link(rel='stylesheet', type='text/css', href='css/print.css', media='print')
+        link(rel='stylesheet', href='bower_components/components-font-awesome/css/font-awesome.min.css')
+        //if lt IE 9
+        script(src='//html5shiv.googlecode.com/svn/trunk/html5.js')
+    body
+        header.mui-appbar.mui-frow.mui-filled.mui--bg-primary-dark
+            .mui-fcolumn.mui-fend.mui--text-display3 Tayr
+            .mui-fcolumn.mui-fend.mui--text-headline.mui--text-primary-light
+                | an easy on-the-fly ORM for NodeJS, inspired by RedBeanPHP
+            .flex
+            a(href='https://github.com/burawi/tayr')
+                i.fa.fa-github.fa-3x
+                br
+                | GitHub
+        #content-wrapper
+            .mui-frow.mui-filled
+                section#main-content.mui--z3 readme.jade%%%%%
+                aside#sidebar
+                    a.button(href='https://github.com/burawi/tayr/zipball/master')
+                        button.mui-btn.mui-btn--accent(type='button')
+                            i.fa.fa-file-archive-o
+                            |  .zip file
+                    a.button(href='https://github.com/burawi/tayr/tarball/master')
+                        button.mui-btn.mui-btn--accent(type='button')
+                            i.fa.fa-file-archive-o
+                            |  .tar.gz file
+                    p.repo-owner
+                        a(href='https://github.com/burawi/tayr')
+                        |  is maintained by 
+                        a(href='https://github.com/burawi') burawi.
