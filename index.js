@@ -569,6 +569,7 @@ module.exports = function(dbData) {
         switch (typeof v) {
             case "number":
                 if (String(v).indexOf(".") > -1) return "DOUBLE";
+                if (v > 2147483647) return "BIGINT";
                 return "INT";
                 break;
             case "string":
