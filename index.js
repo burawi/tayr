@@ -168,9 +168,11 @@ module.exports = function(dbData) {
     T.tayr.prototype.setParent = function(parent) {
         var tayr = this;
         return new Promise(function(resolve, reject) {
-            tayr[parent.table+'Id'] = parent.id;
-            tayr.store().then(function(){
-                resolve(true);
+            parent.store().then(function(){
+                tayr[parent.table+'Id'] = parent.id;
+                tayr.store().then(function(){
+                    resolve(true);
+                });
             });
         });
     }
@@ -432,8 +434,8 @@ module.exports = function(dbData) {
         for (var i = 0; i < request.parents.length; i++) {
             var parent = request.parents[i];
             var cols = dbSchema[parent];
-            for (var j = 0; j < cols.length; j++) {
-                selects.push(parent + '.' + cols[j] + ' AS J_' + parent + '_' + cols[j]);
+            for (var colName in cols) {
+                selects.push(parent + '.' + colName + ' AS J_' + parent + '_' + colName);
             }
         }
 
@@ -523,7 +525,8 @@ module.exports = function(dbData) {
         return new Promise(function(resolve, reject) {
             var sql = ' CREATE TABLE IF NOT EXISTS ' + tayr.table + ' ( id INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY )';
             T.exec(sql).then(function(res) {
-                refreshTables().then(function (res) { dbSchema = res; });
+                tablesRefreshed = false;
+                refreshTables().then(function (res) { dbSchema = res; tablesRefreshed = true; });
                 resolve();
             });
         });
@@ -542,7 +545,12 @@ module.exports = function(dbData) {
                         whatActionToCol(tayr, colName, function(resSql) {
                             if (resSql !== false) {
                                 T.exec(resSql).then(function(res) {
-                                    handleCol(i + 1)
+                                    tablesRefreshed = false;
+                                    refreshTables().then(function (res) {
+                                        dbSchema = res;
+                                        tablesRefreshed = true;
+                                        handleCol(i + 1);
+                                    });
                                 });
                             } else {
                                 handleCol(i + 1);
@@ -597,18 +605,18 @@ module.exports = function(dbData) {
                 resSql += 'ADD ' + colName + ' ' + datatype;
                 skip = false;
             } else {
-                if (dbColumn.Type.name == 'varchar') {
+                if (dbColumn.name == 'varchar') {
                     if (datatype == 'TEXT') {
                         resSql += 'MODIFY COLUMN ' + colName + ' ' + datatype;
                         skip = false;
                     } else {
                         var newEntry = String(mendValue(tayr[colName]));
-                        if (newEntry.length > dbColumn.Type.length) {
+                        if (newEntry.length > dbColumn.length) {
                             resSql += 'MODIFY COLUMN ' + colName + ' VARCHAR(' + newEntry.length + ')';
                             skip = false;
                         }
                     }
-                } else if (dbColumn.Type.name == 'int' && datatype == 'DOUBLE') {
+                } else if (dbColumn.name == 'int' && datatype == 'DOUBLE') {
                     resSql += 'MODIFY COLUMN ' + colName + ' DOUBLE';
                     skip = false;
                 }
@@ -619,19 +627,21 @@ module.exports = function(dbData) {
     }
 
     function getDBColumn(table, colName, callback) {
-        var sql = 'DESCRIBE ' + table + ' ' + colName;
-        connection.query(sql, function(err, res) {
-            if (err) throw err;
-            res = res[0];
-            if (res !== undefined) {
-                var typeRegex = /(\w+)(\((\d+)\))?/g.exec(res.Type);
-                res.Type = {
+        if(dbSchema.hasOwnProperty(table)){
+            if(dbSchema[table].hasOwnProperty(colName)){
+                var res = dbSchema[table][colName];
+                var typeRegex = /(\w+)(\((\d+)\))?/g.exec(res);
+                res = {
                     name: typeRegex[1],
                     length: typeRegex[3]
                 }
+                callback(res)
+            }else{
+                callback(undefined)
             }
-            callback(res)
-        });
+        }else{
+            callback(undefined)
+        }
     }
 
     function tableExists(table) {
@@ -646,10 +656,12 @@ module.exports = function(dbData) {
                 for (var i = 0; i < res.length; i++) {
                     var tableName = res[i].TABLE_NAME;
                     var colName = res[i].COLUMN_NAME;
+                    var type = res[i].COLUMN_TYPE;
                     if (resSchema.hasOwnProperty(tableName)) {
-                        resSchema[tableName].push(colName);
+                        resSchema[tableName][colName] = type;
                     } else {
-                        resSchema[tableName] = [colName];
+                        resSchema[tableName] = {};
+                        resSchema[tableName][colName] = type;
                     }
                 }
                 resolve(resSchema);
