@@ -394,6 +394,16 @@ T.getUncleTableName(table1,table2);
 ```
 
 ## Family Helpers
+- **findByParent**: Finds rows according to parent's attribute.
+
+    *This is not a function, but it's a feature that can be unkown by some people*
+
+    ```javascript
+    T.find('city',{sql:'country.country = ?',vals:'India',parents:'country'}).then(function (cities) {
+        console.log(cities);
+    })
+    ```
+
 - `findByFecundity(table,data)`: Finds rows ordered by children's number.
 
     **Arguments:**
