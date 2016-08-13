@@ -16,28 +16,37 @@ html
         //if lt IE 9
         script(src='//html5shiv.googlecode.com/svn/trunk/html5.js')
     body
-        header.mui-appbar.mui-frow.mui-filled.mui--bg-primary-dark
+        header.mui-appbar.mui-frow.mui-filled
+            .mui-fcolumn.mui-fend
+                img.logo(src='img/logo.svg')
             .mui-fcolumn.mui-fend.mui--text-display3 Tayr
             .mui-fcolumn.mui-fend.mui--text-headline.mui--text-primary-light
-                | an easy on-the-fly ORM for NodeJS, inspired by RedBeanPHP
+                | The ORM that gives you wings
             .flex
             a(href='https://github.com/burawi/tayr')
                 i.fa.fa-github.fa-3x
                 br
                 | GitHub
-        #content-wrapper
-            .mui-frow.mui-filled
-                section#main-content.mui--z3 readme.jade%%%%%
-                aside#sidebar
-                    a.button(href='https://github.com/burawi/tayr/zipball/master')
-                        button.mui-btn.mui-btn--accent(type='button')
-                            i.fa.fa-file-archive-o
-                            |  .zip file
-                    a.button(href='https://github.com/burawi/tayr/tarball/master')
-                        button.mui-btn.mui-btn--accent(type='button')
-                            i.fa.fa-file-archive-o
-                            |  .tar.gz file
-                    p.repo-owner
-                        a(href='https://github.com/burawi/tayr')
-                        |  is maintained by 
-                        a(href='https://github.com/burawi') burawi.
+        .mui-frow
+            #sidebar
+                each page in pages
+                    a(href='#'+page.name)
+                        .item= page.name
+            #content-wrapper
+                .mui-frow.mui-filled
+                    section#main-content
+                        each page in pages
+                            .item(id=page.name) #{page.name}%%%%
+                    //- aside#sidebar
+                    //-     a.button(href='https://github.com/burawi/tayr/zipball/master')
+                    //-         button.mui-btn.mui-btn--accent(type='button')
+                    //-             i.fa.fa-file-archive-o
+                    //-             |  .zip file
+                    //-     a.button(href='https://github.com/burawi/tayr/tarball/master')
+                    //-         button.mui-btn.mui-btn--accent(type='button')
+                    //-             i.fa.fa-file-archive-o
+                    //-             |  .tar.gz file
+                    //-     p.repo-owner
+                    //-         a(href='https://github.com/burawi/tayr')
+                    //-         |  is maintained by 
+                    //-         a(href='https://github.com/burawi') burawi.
