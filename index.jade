@@ -23,10 +23,14 @@ html
             .mui-fcolumn.mui-fend.mui--text-headline.mui--text-primary-light
                 | The ORM that gives you wings
             .flex
-            a(href='https://github.com/burawi/tayr')
-                i.fa.fa-github.fa-3x
-                br
-                | GitHub
+            a(href='https://github.com/burawi/tayr',target='_blank')
+                span.fa-stack.fa-lg
+                    i.fa.fa-circle-o.fa-stack-2x
+                    i.fa.fa-stack-1x.fa-github-alt.fa-inverse
+            a(href='https://www.facebook.com/TayrORM/',target='_blank')
+                span.fa-stack.fa-lg
+                    i.fa.fa-circle-o.fa-stack-2x
+                    i.fa.fa-stack-1x.fa-facebook.fa-inverse
         .mui-frow
             #sidebar
                 each page in pages
