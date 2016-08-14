@@ -5,6 +5,8 @@ html
         meta(charset='utf-8')
         meta(http-equiv='X-UA-Compatible', content='chrome=1')
         meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+        meta(name='description',content='Tayr is a NodeJS MySql ORM that needs "zero-config", It makes the database schema and updates automatically, and let you focus on your code without carrying on models and migrations...')
+        link(rel="icon",href="img/logo.ico",type='image/ico')
         link(href='https://fonts.googleapis.com/css?family=Galada', rel='stylesheet')
         link(href='https://fonts.googleapis.com/css?family=Marcellus+SC', rel='stylesheet')
         link(href='https://fonts.googleapis.com/css?family=Maven+Pro', rel='stylesheet')
@@ -13,8 +15,6 @@ html
         link(rel='stylesheet', type='text/css', href='css/tomorrow.css', media='screen')
         link(rel='stylesheet', type='text/css', href='css/print.css', media='print')
         link(rel='stylesheet', href='bower_components/components-font-awesome/css/font-awesome.min.css')
-        //if lt IE 9
-        script(src='//html5shiv.googlecode.com/svn/trunk/html5.js')
     body
         header.mui-appbar.mui-frow.mui-filled
             .mui-fcolumn.mui-fend
@@ -35,12 +35,12 @@ html
             #sidebar
                 each page in pages
                     a(href='#'+page.name)
-                        .item= page.name
+                        .item= page.displayName
             #content-wrapper
                 .mui-frow.mui-filled
                     section#main-content
                         each page in pages
-                            .item(id=page.name) #{page.name}%%%%
+                            .chapter(id=page.name) #{page.name}%%%%
                     //- aside#sidebar
                     //-     a.button(href='https://github.com/burawi/tayr/zipball/master')
                     //-         button.mui-btn.mui-btn--accent(type='button')

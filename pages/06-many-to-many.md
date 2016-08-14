@@ -1,4 +1,4 @@
-## Many to many (Cousins)
+# Many to many (Cousins)
 
 *For the rest of the docs, we used an adapted copy of sakila database.*
 

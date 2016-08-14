@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>Tayr ORM</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Marcellus+SC" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.min.css" media="screen"><link rel="stylesheet" type="text/css" href="css/default.css" media="screen"><link rel="stylesheet" type="text/css" href="css/tomorrow.css" media="screen"><link rel="stylesheet" type="text/css" href="css/print.css" media="print"><link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css"><!--if lt IE 9--><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script></head><body><header class="mui-appbar mui-frow mui-filled"><div class="mui-fcolumn mui-fend"><img src="img/logo.svg" class="logo"></div><div class="mui-fcolumn mui-fend mui--text-display3">Tayr</div><div class="mui-fcolumn mui-fend mui--text-headline mui--text-primary-light">The ORM that gives you wings</div><div class="flex"></div><a href="https://github.com/burawi/tayr" target="_blank"><span class="fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-github-alt fa-inverse"></i></span></a><a href="https://www.facebook.com/TayrORM/" target="_blank"><span class="fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-facebook fa-inverse"></i></span></a></header><div class="mui-frow"><div id="sidebar"><a href="#01-introduction"><div class="item">01-introduction</div></a><a href="#02-create-update"><div class="item">02-create-update</div></a><a href="#03-read"><div class="item">03-read</div></a><a href="#04-delete"><div class="item">04-delete</div></a><a href="#05-OneToMany"><div class="item">05-OneToMany</div></a><a href="#06-ManyToMany"><div class="item">06-ManyToMany</div></a><a href="#07-FamilyHelpers"><div class="item">07-FamilyHelpers</div></a><a href="#08-Datatypes"><div class="item">08-Datatypes</div></a><a href="#09-Helpers"><div class="item">09-Helpers</div></a></div><div id="content-wrapper"><div class="mui-frow mui-filled"><section id="main-content"><div id="01-introduction" class="item"><h1 id="introduction">Introduction</h1>
+<!DOCTYPE html><html><head><title>Tayr ORM</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Tayr is a NodeJS MySql ORM that needs &quot;zero-config&quot;, It makes the database schema and updates automatically, and let you focus on your code without carrying on models and migrations..."><link rel="icon" href="img/logo.ico" type="image/ico"><link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Marcellus+SC" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.min.css" media="screen"><link rel="stylesheet" type="text/css" href="css/default.css" media="screen"><link rel="stylesheet" type="text/css" href="css/tomorrow.css" media="screen"><link rel="stylesheet" type="text/css" href="css/print.css" media="print"><link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css"></head><body><header class="mui-appbar mui-frow mui-filled"><div class="mui-fcolumn mui-fend"><img src="img/logo.svg" class="logo"></div><div class="mui-fcolumn mui-fend mui--text-display3">Tayr</div><div class="mui-fcolumn mui-fend mui--text-headline mui--text-primary-light">The ORM that gives you wings</div><div class="flex"></div><a href="https://github.com/burawi/tayr" target="_blank"><span class="fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-github-alt fa-inverse"></i></span></a><a href="https://www.facebook.com/TayrORM/" target="_blank"><span class="fa-stack fa-lg"><i class="fa fa-circle-o fa-stack-2x"></i><i class="fa fa-stack-1x fa-facebook fa-inverse"></i></span></a></header><div class="mui-frow"><div id="sidebar"><a href="#01-introduction"><div class="item"> introduction</div></a><a href="#02-create-update"><div class="item"> create update</div></a><a href="#03-read"><div class="item"> read</div></a><a href="#04-delete"><div class="item"> delete</div></a><a href="#05-one-to-many"><div class="item"> one to many</div></a><a href="#06-many-to-many"><div class="item"> many to many</div></a><a href="#07-family-helpers"><div class="item"> family helpers</div></a><a href="#08-Datatypes"><div class="item"> Datatypes</div></a><a href="#09-Helpers"><div class="item"> Helpers</div></a></div><div id="content-wrapper"><div class="mui-frow mui-filled"><section id="main-content"><div id="01-introduction" class="chapter"><h1 id="introduction">Introduction</h1>
 <ul>
 <li>Feeling that you are are wasting a lot of time writing database schema ?</li>
 <li>Bored of making migrations for every little change in the database ?</li>
@@ -19,7 +19,8 @@
         database: <span class="hljs-string">'databaseName'</span>
     });
 </code></pre>
-</div><div id="02-create-update" class="item"><h2 id="initialize-a-tayr">Initialize a tayr</h2>
+</div><div id="02-create-update" class="chapter"><h1 id="create-update">Create &amp; Update</h1>
+<h2 id="initialize-a-tayr">Initialize a tayr</h2>
 <p>To declare a tayr:</p>
 <ul>
 <li><p><code>tayr(table,properties)</code></p>
@@ -39,7 +40,7 @@
 </code></pre>
 </li>
 </ul>
-<h2 id="create-update">Create/Update</h2>
+<h2 id="store-update">Store/Update</h2>
 <p>Creating and updating is done using <code>.store()</code> function, if the tayr has an <code>id</code> that exists in the table it will update the row, else it will add a new row and affect an <code>id</code> to the tayr.</p>
 <pre><code class="lang-javascript">    user.store().<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
         console.<span class="hljs-built_in">log</span>(user);
@@ -90,7 +91,7 @@
 <p><em>Note That: In Both Functions if any row exists it will be updated</em></p>
 </li>
 </ul>
-</div><div id="03-read" class="item"><h2 id="read">Read</h2>
+</div><div id="03-read" class="chapter"><h1 id="read">Read</h1>
 <p>To read data from DB there are 3 ways:</p>
 <ul>
 <li><p><code>load(table,id)</code>: Loads a tayr.</p>
@@ -146,7 +147,7 @@
 </code></pre>
 </li>
 </ul>
-</div><div id="04-delete" class="item"><h2 id="delete">Delete</h2>
+</div><div id="04-delete" class="chapter"><h1 id="delete">Delete</h1>
 <p>There are two ways to delete records from DB:</p>
 <ul>
 <li><p><code>.delete()</code>: this function deletes the tayr:</p>
@@ -175,7 +176,7 @@
 </ul>
 </li>
 </ul>
-</div><div id="05-OneToMany" class="item"><h2 id="one-to-many-parent-children-">One to many (Parent &amp; Children)</h2>
+</div><div id="05-one-to-many" class="chapter"><h1 id="one-to-many-parent-children-">One to many (Parent &amp; Children)</h1>
 <p>You can add a property <code>tableName+&#39;Id&#39;</code> manually to make a tayr belong to another tayr. Or you can use this function:</p>
 <ul>
 <li><p><code>.setParent(parent)</code>: Sets a parent to tayr.</p>
@@ -229,7 +230,7 @@
 </code></pre>
 </li>
 </ul>
-</div><div id="06-ManyToMany" class="item"><h2 id="many-to-many-cousins-">Many to many (Cousins)</h2>
+</div><div id="06-many-to-many" class="chapter"><h1 id="many-to-many-cousins-">Many to many (Cousins)</h1>
 <p><em>For the rest of the docs, we used an adapted copy of sakila database.</em></p>
 <p>In Tayr the many to many related tables are called cousins:</p>
 <ul>
@@ -326,7 +327,7 @@
 // <span class="hljs-keyword">for</span> table1 = <span class="hljs-symbol">'film</span>' <span class="hljs-keyword">and</span> table2 = <span class="hljs-symbol">'actor</span>'
 // it returns <span class="hljs-symbol">'actor_film</span>'
 </code></pre>
-</div><div id="07-FamilyHelpers" class="item"><h2 id="family-helpers">Family Helpers</h2>
+</div><div id="07-family-helpers" class="chapter"><h1 id="family-helpers">Family Helpers</h1>
 <ul>
 <li><p><strong>findByParent</strong>: Finds rows according to parent&#39;s attribute.</p>
 <p>  <em>This is not a function, but it&#39;s a feature that can be unkown by some people</em></p>
@@ -400,7 +401,7 @@
 </code></pre>
 </li>
 </ul>
-</div><div id="08-Datatypes" class="item"><h1 id="datatypes">Datatypes</h1>
+</div><div id="08-Datatypes" class="chapter"><h1 id="datatypes">Datatypes</h1>
 <p>These are the supported types, any other type can cause errors.</p>
 <ul>
 <li><code>integer</code>: INT <em>(convertible to DOUBLE automatically)</em></li>
@@ -409,7 +410,7 @@
 <li><code>string</code> : VARCHAR (if length &lt; 256) | TEXT (if length &gt; 255)</li>
 <li><code>Date</code>   : BIGINT (in milliseconds)</li>
 </ul>
-</div><div id="09-Helpers" class="item"><h1 id="helpers">Helpers</h1>
+</div><div id="09-Helpers" class="chapter"><h1 id="helpers">Helpers</h1>
 <h2 id="counting">Counting</h2>
 <ul>
 <li><p><code>count(table,data)</code>: Returns the number of rows found.</p>

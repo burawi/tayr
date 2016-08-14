@@ -1,4 +1,4 @@
-## Delete
+# Delete
 There are two ways to delete records from DB:
 
 - `.delete()`: this function deletes the tayr:

@@ -14,9 +14,12 @@ var pagesDir = fs.readdirSync('./pages');
 var pages = [];
 for (var i = 0; i < pagesDir.length; i++) {
     var name  = pagesDir[i].replace(/.md/g,'');
+    var displayName = name.replace(/\d/g,'');
+    displayName = displayName.replace(/-/g,' ');
     var content = marked(fs.readFileSync('./pages/'+pagesDir[i], 'utf8'));
     pages[i] = {
         name: name
+        ,displayName: displayName
         ,content: content
     }
 }

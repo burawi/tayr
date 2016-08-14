@@ -1,4 +1,4 @@
-## One to many (Parent & Children)
+# One to many (Parent & Children)
 You can add a property `tableName+'Id'` manually to make a tayr belong to another tayr. Or you can use this function:
 
 - `.setParent(parent)`: Sets a parent to tayr.

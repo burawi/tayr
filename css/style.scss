@@ -128,3 +128,8 @@ a{
         }
     }
 }
+
+.chapter{
+    padding: 12px;
+    @extend .mui--divider-bottom;
+}

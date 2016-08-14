@@ -1,4 +1,4 @@
-## Read
+# Read
 To read data from DB there are 3 ways:
 
 - `load(table,id)`: Loads a tayr.

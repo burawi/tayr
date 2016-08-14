@@ -1,4 +1,4 @@
-## Family Helpers
+# Family Helpers
 - **findByParent**: Finds rows according to parent's attribute.
 
     *This is not a function, but it's a feature that can be unkown by some people*

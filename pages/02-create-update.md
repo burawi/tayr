@@ -1,3 +1,4 @@
+# Create & Update
 ## Initialize a tayr
 To declare a tayr:
 
@@ -23,7 +24,7 @@ console.log(user.table);
 // output: user
 ```
 
-## Create/Update
+## Store/Update
 Creating and updating is done using `.store()` function, if the tayr has an `id` that exists in the table it will update the row, else it will add a new row and affect an `id` to the tayr.
 ```javascript
     user.store().then(function(){
