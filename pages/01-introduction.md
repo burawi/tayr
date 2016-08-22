@@ -1,11 +1,29 @@
-# Introduction
-- Feeling that you are are wasting a lot of time writing database schema ?
-- Bored of making migrations for every little change in the database ?
-- Feeling that there is an other way simpler to manage a database ?
-- Wanting an orm that does all the configuration for you ?
+Tayr is an easy on-the-fly MySql ORM for NodeJs developers. No configuration is needed, the schema is made automatically which let you focus on the code without carrying on models, migrations and all that kind of stuff.
 
-Tayr is what you're looking for. It's a MySql ORM that needs "zero-config", It makes the database schema and updates automatically, and let you focus on your code without carrying on models and migrations...
+# Usage Example
 
+```javascript
+var nest = require('Tayr');
+var T = new nest({
+    host: 'hostname',
+    user: 'username',
+    password: 'password',
+    database: 'databaseName'
+});
+
+var user = new T.tayr('user',{
+    name: 'Muhamad',
+    age: 63,
+    registeredAt: new Date()
+});
+
+user.store().then(function(){
+    console.log(user);
+});
+//output: { name: 'Muhamad', age: '63', registeredAt: 1467137605631, id: 6 }
+```
+
+# Getting Started
 ## Install
 Install the module with:
 
@@ -15,11 +33,11 @@ Install the module with:
 The way to connect to DB is quite similar to mysql module:
 
 ```javascript
-    var nest = require('Tayr');
-    var T = new nest({
-        host: 'hostname',
-        user: 'username',
-        password: 'password',
-        database: 'databaseName'
-    });
+var nest = require('Tayr');
+var T = new nest({
+    host: 'hostname',
+    user: 'username',
+    password: 'password',
+    database: 'databaseName'
+});
 ```

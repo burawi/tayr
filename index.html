@@ -1,23 +1,37 @@
-<!DOCTYPE html><html><head><title>Tayr ORM</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Tayr is a NodeJS MySql ORM that needs &quot;zero-config&quot;, It makes the database schema and updates automatically, and let you focus on your code without carrying on models and migrations..."><link rel="icon" href="img/icons/favicon.ico" type="image/ico"><link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Marcellus+SC" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.min.css" media="screen"><link rel="stylesheet" type="text/css" href="css/default.css" media="screen"><link rel="stylesheet" type="text/css" href="css/tomorrow.css" media="screen"><link rel="stylesheet" type="text/css" href="css/print.css" media="print"><link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css"></head><body><header class="mui-appbar mui-frow mui-filled"><div class="mui-fcolumn mui-fend"><img src="img/logo.svg" class="logo"></div><div class="mui-fcolumn mui-fend mui--text-display3">Tayr</div><div class="mui-fcolumn mui-fend mui--text-headline mui--text-primary-light">The ORM that gives you wings</div><div class="flex"></div><a href="https://github.com/burawi/tayr" target="_blank"><div class="social-btn github"><i class="fa fa-github-alt fa-2x"></i></div></a><a href="https://www.facebook.com/TayrORM/" target="_blank"><div class="social-btn facebook"><i class="fa fa-facebook fa-2x"></i></div></a></header><div class="mui-frow"><div id="sidebar"><a href="#01-introduction"><div class="item"> introduction</div></a><a href="#02-create-update"><div class="item"> create update</div></a><a href="#03-read"><div class="item"> read</div></a><a href="#04-delete"><div class="item"> delete</div></a><a href="#05-one-to-many"><div class="item"> one to many</div></a><a href="#06-many-to-many"><div class="item"> many to many</div></a><a href="#07-family-helpers"><div class="item"> family helpers</div></a><a href="#08-Datatypes"><div class="item"> Datatypes</div></a><a href="#09-Helpers"><div class="item"> Helpers</div></a></div><div id="content-wrapper"><div class="mui-frow mui-filled"><section id="main-content"><div id="01-introduction" class="chapter"><h1 id="introduction">Introduction</h1>
-<ul>
-<li>Feeling that you are are wasting a lot of time writing database schema ?</li>
-<li>Bored of making migrations for every little change in the database ?</li>
-<li>Feeling that there is an other way simpler to manage a database ?</li>
-<li>Wanting an orm that does all the configuration for you ?</li>
-</ul>
-<p>Tayr is what you&#39;re looking for. It&#39;s a MySql ORM that needs &quot;zero-config&quot;, It makes the database schema and updates automatically, and let you focus on your code without carrying on models and migrations...</p>
+<!DOCTYPE html><html><head><title>Tayr ORM</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Tayr is a NodeJS MySql ORM that needs &quot;zero-config&quot;, It makes the database schema and updates automatically, and let you focus on your code without carrying on models and migrations..."><link rel="icon" href="img/icons/favicon.ico" type="image/ico"><link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Marcellus+SC" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.min.css" media="screen"><link rel="stylesheet" type="text/css" href="css/default.css" media="screen"><link rel="stylesheet" type="text/css" href="css/tomorrow.css" media="screen"><link rel="stylesheet" type="text/css" href="css/print.css" media="print"><link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css"></head><body><header class="mui-appbar mui-frow mui-filled"><div class="mui-fcolumn mui-fend"><img src="img/logo.svg" class="logo"></div><div class="mui-fcolumn mui-fend mui--text-display3">Tayr</div><div class="mui-fcolumn mui-fend mui--text-headline mui--text-primary-light">The ORM that gives you wings</div><div class="flex"></div><a href="https://github.com/burawi/tayr" target="_blank"><div class="social-btn github"><i class="fa fa-github-alt fa-2x"></i></div></a><a href="https://www.facebook.com/TayrORM/" target="_blank"><div class="social-btn facebook"><i class="fa fa-facebook fa-2x"></i></div></a></header><div class="mui-frow"><div id="sidebar"><a href="#01-introduction"><div class="item"> introduction</div></a><a href="#02-create-update"><div class="item"> create update</div></a><a href="#03-read"><div class="item"> read</div></a><a href="#04-delete"><div class="item"> delete</div></a><a href="#05-one-to-many"><div class="item"> one to many</div></a><a href="#06-many-to-many"><div class="item"> many to many</div></a><a href="#07-family-helpers"><div class="item"> family helpers</div></a><a href="#08-Datatypes"><div class="item"> Datatypes</div></a><a href="#09-Helpers"><div class="item"> Helpers</div></a></div><div id="content-wrapper"><div class="mui-frow mui-filled"><section id="main-content"><div id="introduction" class="mui-frow"><img src="img/logo.svg" class="logo"><div class="mui-fcolumn mui-centered"><div class="appname text-display">Tayr</div></div></div><div id="01-introduction" class="chapter"><p>Tayr is an easy on-the-fly MySql ORM for NodeJs developers. No configuration is needed, the schema is made automatically which let you focus on the code without carrying on models, migrations and all that kind of stuff.</p>
+<h1 id="usage-example">Usage Example</h1>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> nest = <span class="hljs-built_in">require</span>(<span class="hljs-string">'Tayr'</span>);
+<span class="hljs-keyword">var</span> T = <span class="hljs-keyword">new</span> nest({
+    host: <span class="hljs-string">'hostname'</span>,
+    user: <span class="hljs-string">'username'</span>,
+    password: <span class="hljs-string">'password'</span>,
+    database: <span class="hljs-string">'databaseName'</span>
+});
+
+<span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> T.tayr(<span class="hljs-string">'user'</span>,{
+    name: <span class="hljs-string">'Muhamad'</span>,
+    age: <span class="hljs-number">63</span>,
+    registeredAt: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+});
+
+user.store().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-built_in">console</span>.log(user);
+});
+<span class="hljs-comment">//output: { name: 'Muhamad', age: '63', registeredAt: 1467137605631, id: 6 }</span>
+</code></pre>
+<h1 id="getting-started">Getting Started</h1>
 <h2 id="install">Install</h2>
 <p>Install the module with:</p>
 <pre><code>npm <span class="hljs-keyword">install</span> Tayr
 </code></pre><h2 id="connect-to-db">Connect to DB</h2>
 <p>The way to connect to DB is quite similar to mysql module:</p>
-<pre><code class="lang-javascript">    <span class="hljs-keyword">var</span> nest = <span class="hljs-built_in">require</span>(<span class="hljs-string">'Tayr'</span>);
-    <span class="hljs-keyword">var</span> T = <span class="hljs-keyword">new</span> nest({
-        host: <span class="hljs-string">'hostname'</span>,
-        user: <span class="hljs-string">'username'</span>,
-        password: <span class="hljs-string">'password'</span>,
-        database: <span class="hljs-string">'databaseName'</span>
-    });
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> nest = <span class="hljs-built_in">require</span>(<span class="hljs-string">'Tayr'</span>);
+<span class="hljs-keyword">var</span> T = <span class="hljs-keyword">new</span> nest({
+    host: <span class="hljs-string">'hostname'</span>,
+    user: <span class="hljs-string">'username'</span>,
+    password: <span class="hljs-string">'password'</span>,
+    database: <span class="hljs-string">'databaseName'</span>
+});
 </code></pre>
 </div><div id="02-create-update" class="chapter"><h1 id="create-update">Create &amp; Update</h1>
 <h2 id="initialize-a-tayr">Initialize a tayr</h2>

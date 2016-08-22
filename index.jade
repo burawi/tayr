@@ -37,6 +37,10 @@ html
             #content-wrapper
                 .mui-frow.mui-filled
                     section#main-content
+                        #introduction.mui-frow
+                            img.logo(src='img/logo.svg')
+                            .mui-fcolumn.mui-centered
+                                .appname.text-display Tayr
                         each page in pages
                             .chapter(id=page.name) #{page.name}%%%%
                     //- aside#sidebar

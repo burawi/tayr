@@ -110,6 +110,24 @@ a{
     }
 }
 
+.text-display {
+    font-family: $display-font;
+}
+
+#main-content{
+    padding-top: 12px;
+}
+
+#introduction {
+    .logo{
+        width: 300px;
+    }
+    .appname {
+        font-size: 215px;
+        margin-left: 24px;
+    }
+}
+
 #sidebar {
     @extend .mui--bg-primary-dark;
     @extend .mui--text-white;
