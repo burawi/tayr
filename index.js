@@ -43,9 +43,41 @@ module.exports = function(dbData) {
                     tayr.mendValues();
                     var values = Object.keys(tayr).map(key => tayr[key]);
                     T.exec(sql, values.concat(values)).then(function(res) {
-                        tayr.id = res.insertId;
+                        if(res.insertId != 0) tayr.id = res.insertId;
                         resolve();
                     });
+                });
+            });
+        });
+    }
+
+    T.tayr.prototype.findOrCreate = function(data) {
+        data = data || {};
+        if(data.by === undefined) data.by = Object.keys(tayr);
+        if(data.onCreate === undefined) {};
+        var tayr = this;
+        var request = {
+            sql: data.by.map(key => key + ' = ? ').join(' AND '),
+            vals: data.by.map(key => tayr[key])
+        };
+
+        return new Promise(function(resolve, reject) {
+            createTable(tayr).then(function() {
+                createCols(tayr).then(function() {
+                    T.findOne(tayr.table, request).then(function(res) {
+                        if (!res) {
+                            for (var key in data.onCreate) {
+                                if (data.onCreate.hasOwnProperty(key)) {
+                                    tayr[key] = data.onCreate[key];
+                                }
+                            }
+                        } else {
+                            tayr.id = res.id;
+                        }
+                        tayr.store().then(function(){
+                            resolve();
+                        });
+                    },function(err){ reject(err); });
                 });
             });
         });
@@ -159,9 +191,9 @@ module.exports = function(dbData) {
     T.tayr.prototype.getParent = function(table) {
         var tayr = this;
         return new Promise(function(resolve, reject) {
-            T.findOne(table, {sql:'id = ?',vals: tayr[table + 'Id']}, function(parent) {
+            T.findOne(table, {sql:'id = ?',vals: tayr[table + 'Id']}).then(function(parent) {
                 resolve(parent);
-            });
+            },function(err){ reject(err); });
         });
     }
 
@@ -180,9 +212,9 @@ module.exports = function(dbData) {
     T.tayr.prototype.delete = function() {
         var tayr = this;
         return new Promise(function(resolve, reject) {
-            if (isValidTayr(tayr)) reject('ERR: this is not a valid tayr!')
-            var sql = 'DELETE FROM ? WHERE id = ?';
-            T.exec(sql,[tayr.table,tayr.id]).then(function(res) {
+            if (!isValidTayr(tayr)) reject('ERR: this is not a valid tayr!')
+            var sql = "DELETE FROM "+tayr.table+" WHERE id = ?";
+            T.exec(sql,[tayr.id]).then(function(res) {
                 resolve(true);
             });
         });
@@ -280,19 +312,20 @@ module.exports = function(dbData) {
             if(typeof table !==  "string") reject('Err: table name must be a String!');
             if(typeof request.sql !==  "string") reject('Err: sql must be a String!');
             if(!Array.isArray(request.parents) && typeof request.parents !==  "string") reject('Err: parents must be an Array or a String!');
+            waitForSchema(function () {
+                var sql = getQuerySql(table,request);
+                // console.log(request);
+                // console.log(sql);
 
-            var sql = getQuerySql(table,request);
-
-            T.exec(sql,request.vals).then(function(res) {
-                resolve(res)
-            },function(err){ reject(err); });
+                T.exec(sql,request.vals).then(function(res) {
+                    resolve(res)
+                },function(err){ reject(err + '\n Request Given: ' + JSON.stringify(request)); });
+            })
         });
     }
 
     T.find = function(table,request) {
         return new Promise(function(resolve, reject) {
-            request = request || {};
-            request.action = 'SELECT';
             T.query(table,request).then(function(res) {
                 if (res.length > 0) {
                     res = formatJoinsArray(res);
@@ -305,7 +338,7 @@ module.exports = function(dbData) {
     }
 
     T.findOne = function(table, request) {
-        request = request || {};
+        request = mendQueryRequest(request);
         request.sql += ' LIMIT 1';
 
         return new Promise(function(resolve, reject) {
@@ -449,7 +482,7 @@ module.exports = function(dbData) {
         }
 
         var wheresBlock = getWheresBlock(request.sql);
-        if(/(=|>|<|LIKE|BETWEEN|IS|IN|LEAST|COALESCE|INTERVAL|GRETEST|STRCMP)/i.test(wheresBlock)){
+        if(/(=|>|<|LIKE|REGEXP|BETWEEN|IS|IN|LEAST|COALESCE|INTERVAL|GRETEST|STRCMP)/i.test(wheresBlock)){
             sql += ' WHERE ' + request.sql;
         } else {
             sql += ' '+request.sql;
