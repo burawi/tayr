@@ -326,14 +326,20 @@ module.exports = function(dbData) {
 
     T.find = function(table,request) {
         return new Promise(function(resolve, reject) {
-            T.query(table,request).then(function(res) {
-                if (res.length > 0) {
-                    res = formatJoinsArray(res);
-                    resolve(T.arrayToTayrs(table, res));
-                } else {
-                    resolve(false);
+            waitForSchema(function () {
+                if(tableExists(table)){
+                    T.query(table,request).then(function(res) {
+                        if (res.length > 0) {
+                            res = formatJoinsArray(res);
+                            resolve(T.arrayToTayrs(table, res));
+                        } else {
+                            resolve(false);
+                        }
+                    });
+                }else{
+                    resolve([]);
                 }
-            });
+            })
         });
     }
 
@@ -395,9 +401,15 @@ module.exports = function(dbData) {
             request = request || {};
             request.select = 'COUNT(*)';
             request.manualSelect = true;
-            T.find(table,request).then(function(res) {
-                resolve(res[0]['COUNT(*)']);
-            });
+            waitForSchema(function () {
+                if(tableExists(table)){
+                    T.find(table,request).then(function(res) {
+                        resolve(res[0]['COUNT(*)']);
+                    });
+                }else{
+                    resolve(0)
+                }
+            })
         });
     }
 
