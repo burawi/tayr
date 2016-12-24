@@ -333,7 +333,7 @@ module.exports = function(dbData) {
                             res = formatJoinsArray(res);
                             resolve(T.arrayToTayrs(table, res));
                         } else {
-                            resolve(false);
+                            resolve([]);
                         }
                     });
                 }else{
