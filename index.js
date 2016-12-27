@@ -267,6 +267,9 @@ module.exports = function(dbData) {
                         values = values.concat(tayrVals).concat(tayrVals);
                     }
                     T.exec(sql.join('; '), values.concat(values)).then(function(rows) {
+                        if(!Array.isArray(rows)){
+                            rows = [rows];
+                        }
                         for (var i = 0; i < res.length; i++) {
                             res[i].id = rows[i].insertId;
                         }
