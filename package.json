@@ -13,6 +13,7 @@
   "author": "Abu Rawi",
   "license": "ISC",
   "dependencies": {
-    "mysql": "^2.10.2"
+    "mysql": "^2.10.2",
+    "echasync": ""
   }
 }

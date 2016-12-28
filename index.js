@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var echasync = require('echasync');
 
 
 module.exports = function(dbData) {
@@ -35,7 +36,7 @@ module.exports = function(dbData) {
     T.tayr.prototype.store = function() {
         var tayr = this;
         return new Promise(function(resolve, reject) {
-            if (!isValidTayr(tayr)) reject('ERR: this parameter is not a valid tayr: \n' + tayr);
+            if (!T.isValidTayr(tayr)) reject('ERR: this parameter is not a valid tayr: \n' + tayr);
 
             createTable(tayr).then(function() {
                 createCols(tayr).then(function() {
@@ -51,6 +52,7 @@ module.exports = function(dbData) {
         });
     }
 
+    // TODO: Docs
     T.tayr.prototype.findOrCreate = function(data) {
         data = data || {};
         if(data.by === undefined) data.by = Object.keys(tayr);
@@ -86,9 +88,19 @@ module.exports = function(dbData) {
     T.tayr.prototype.getChildren = function(table) {
         var tayr = this;
         return new Promise(function(resolve, reject) {
-            T.find(table,{sql: tayr.table + 'Id = ?', vals: tayr.id}).then(function(children) {
+            T.find(table, tayr.table + 'Id = ?', tayr.id).then(function(children) {
                 resolve(children);
             });
+        });
+    }
+
+    T.tayr.prototype.attachChildren = function(table) {
+        var tayr = this;
+        return new Promise(function(resolve, reject) {
+            tayr.getChildren(table).then(function (children) {
+                tayr[table] = children;
+                resolve();
+            })
         });
     }
 
@@ -115,6 +127,16 @@ module.exports = function(dbData) {
         });
     }
 
+    T.tayr.prototype.attachCousins = function(table) {
+        var tayr = this;
+        return new Promise(function(resolve, reject) {
+            tayr.getCousins(table).then(function (cousins) {
+                tayr[table] = cousins;
+                resolve();
+            })
+        });
+    }
+
     T.tayr.prototype.setCousins = function(table,array) {
         var tayr = this;
         return new Promise(function(resolve, reject) {
@@ -129,7 +151,7 @@ module.exports = function(dbData) {
                 }
                 uncles = T.arrayToTayrs(uncleTable,uncles);
                 if(tableExists(uncleTable)){
-                    T.delete(uncleTable,{sql: tayr.table+'Id = ?', vals: tayr.id}).then(function(){
+                    T.delete(uncleTable, tayr.table+'Id = ?', tayr.id).then(function(){
                         T.storeRows(uncleTable,uncles).then(function(){
                             resolve(cousins);
                         });
@@ -182,7 +204,7 @@ module.exports = function(dbData) {
         return new Promise(function(resolve, reject) {
             var uncleTable = T.getUncleTableName(tayr.table,cousin.table);
             var condition = tayr.table+'Id = ? AND '+cousin.table+'Id = ?';
-            T.delete(uncleTable,{sql:condition,vals:[tayr.id,cousin.id]}).then(function(){
+            T.delete(uncleTable, condition, [tayr.id,cousin.id]).then(function(){
                 resolve(true);
             });
         });
@@ -191,8 +213,19 @@ module.exports = function(dbData) {
     T.tayr.prototype.getParent = function(table) {
         var tayr = this;
         return new Promise(function(resolve, reject) {
-            T.findOne(table, {sql:'id = ?',vals: tayr[table + 'Id']}).then(function(parent) {
+            T.load(table, tayr[table + 'Id']).then(function(parent) {
                 resolve(parent);
+            },function(err){ reject(err); });
+        });
+    }
+
+    // TODO: Docs
+    T.tayr.prototype.attachParent = function(table) {
+        var tayr = this;
+        return new Promise(function(resolve, reject) {
+            tayr.getParent(table).then(function(parent) {
+                tayr[table] = parent;
+                resolve();
             },function(err){ reject(err); });
         });
     }
@@ -212,7 +245,7 @@ module.exports = function(dbData) {
     T.tayr.prototype.delete = function() {
         var tayr = this;
         return new Promise(function(resolve, reject) {
-            if (!isValidTayr(tayr)) reject('ERR: this is not a valid tayr!')
+            if (!T.isValidTayr(tayr)) reject('ERR: this is not a valid tayr!')
             var sql = "DELETE FROM "+tayr.table+" WHERE id = ?";
             T.exec(sql,[tayr.id]).then(function(res) {
                 resolve(true);
@@ -283,58 +316,63 @@ module.exports = function(dbData) {
         });
     }
 
-    T.load = function(table, id, parents) {
+    function JoinRelatives(tayrs, more, type) {
         return new Promise(function(resolve, reject) {
-            if(id === undefined) reject('Err: An id must be given!');
-            if(!Number.isInteger(id)) reject('Err: id must be an Integer!');
-
-            T.findOne(table, {sql: table+'.id = ?',vals:id, parents: parents}).then(function(res) {
-                if(res.id !== undefined){
-                    resolve(new T.tayr(table, toSimpleObject(res)));
-                } else {
-                    resolve(false);
-                }
-            },function(err){ reject(err); });
+            var attachFns = {
+                parents: 'attachParent',
+                children: 'attachChildren',
+                cousins: 'attachCousins'
+            };
+            if(more === undefined){
+                more = {};
+            }
+            if(typeof more[type] === "string"){
+                more[type] = [more[type]];
+            }
+            if(Array.isArray(more[type])){
+                echasync.do(tayrs,function (nextTayr, tayr, index) {
+                    echasync.do(more[type], function (nextRelative, relativeName) {
+                        attachFn = attachFns[type];
+                        tayrs[index][attachFn](relativeName).then(function () {
+                            nextRelative();
+                        })
+                    }, function () {
+                        nextTayr();
+                    })
+                }, function () {
+                    resolve(tayrs);
+                });
+            } else {
+                resolve(tayrs);
+            }
         });
     }
 
-    // T.query
-    //     request => {
-    //         action: delete | select ... default: select
-    //         select: optional sql to put after select
-    //         manualSelect: if set to true request will not select all table columns automatically
-    //         sql: without writing WHERE
-    //         vals: values that will replace the "?" in sql
-    //         parents: parents to join
-    //     }
-
-    T.query = function(table, request) {
-        request = mendQueryRequest(request);
-        return new Promise(function (resolve, reject) {
-            if(table === undefined) reject('Err: A table name must be given!');
-            if(typeof table !==  "string") reject('Err: table name must be a String!');
-            if(typeof request.sql !==  "string") reject('Err: sql must be a String!');
-            if(!Array.isArray(request.parents) && typeof request.parents !==  "string") reject('Err: parents must be an Array or a String!');
-            waitForSchema(function () {
-                var sql = getQuerySql(table,request);
-                // console.log(request);
-                // console.log(sql);
-
-                T.exec(sql,request.vals).then(function(res) {
-                    resolve(res)
-                },function(err){ reject(err + '\n Request Given: ' + JSON.stringify(request)); });
+    function attachJoins(tayrs, more) {
+        return new Promise(function(resolve, reject) {
+            JoinRelatives(tayrs, more, 'parents').then(function (tayrs) {
+                JoinRelatives(tayrs, more, 'cousins').then(function (tayrs) {
+                    JoinRelatives(tayrs, more, 'children').then(function (tayrs) {
+                        resolve(tayrs);
+                    })
+                })
             })
         });
     }
 
-    T.find = function(table,request) {
+    T.find = function(table, restSql, vals, more) {
         return new Promise(function(resolve, reject) {
             waitForSchema(function () {
                 if(tableExists(table)){
-                    T.query(table,request).then(function(res) {
+                    var sql = getSelectSql(table, restSql, vals, more);
+                    // console.log(sql);
+
+                    T.exec(sql,vals).then(function(res) {
                         if (res.length > 0) {
-                            res = formatJoinsArray(res);
-                            resolve(T.arrayToTayrs(table, res));
+                            var tayrs = T.arrayToTayrs(table, res);
+                            attachJoins(tayrs, more).then(function (tayrs) {
+                                resolve(tayrs);
+                            })
                         } else {
                             resolve([]);
                         }
@@ -346,14 +384,26 @@ module.exports = function(dbData) {
         });
     }
 
-    T.findOne = function(table, request) {
-        request = mendQueryRequest(request);
-        request.sql += ' LIMIT 1';
-
+    T.findOne = function(table, restSql, vals, more) {
         return new Promise(function(resolve, reject) {
-            T.find(table, request).then(function(res) {
+            T.find(table, restSql, vals, more).then(function(res) {
                 if (res.length > 0) {
                     resolve(new T.tayr(table, toSimpleObject(res[0])));
+                } else {
+                    resolve(false);
+                }
+            },function(err){ reject(err); });
+        });
+    }
+
+    T.load = function(table, id, more) {
+        return new Promise(function(resolve, reject) {
+            if(id === undefined) reject('Err: An id must be given!');
+            if(!Number.isInteger(id)) reject('Err: id must be an Integer!');
+
+            T.findOne(table, table+'.id = ?', id, more).then(function(res) {
+                if(res.id !== undefined){
+                    resolve(new T.tayr(table, toSimpleObject(res)));
                 } else {
                     resolve(false);
                 }
@@ -416,15 +466,11 @@ module.exports = function(dbData) {
         });
     }
 
-    T.delete = function(table, request){
+    T.delete = function(table, restSql, vals){
         return new Promise(function(resolve, reject) {
-            request = request || {};
-            request.action = 'DELETE';
-            request.parents = [];
-            request.select = '';
-            request.manualSelect = true;
-            T.query(table,request).then(function(res) {
-                resolve(res);
+            var sql = "DELETE FROM " + table + " WHERE "+ restSql;
+            T.exec(sql,vals).then(function(res) {
+                resolve(res)
             });
         });
     }
@@ -465,7 +511,7 @@ module.exports = function(dbData) {
     T.arrayToTayrs = function(table, array) {
         var res = [];
         for (var i = 0; i < array.length; i++) {
-            if (!isValidTayr(array[i])) {
+            if (!T.isValidTayr(array[i])) {
                 array[i] = new T.tayr(table, toSimpleObject(array[i]));
             }
             res.push(array[i]);
@@ -473,48 +519,25 @@ module.exports = function(dbData) {
         return res;
     }
 
-    function getQuerySql(table,request) {
-        var sql = request.action;
-        var selects = []
-
-        if(request.select != '') selects.push(request.select);
-
-        for (var i = 0; i < request.parents.length; i++) {
-            var parent = request.parents[i];
-            var cols = dbSchema[parent];
-            for (var colName in cols) {
-                selects.push(parent + '.' + colName + ' AS J_' + parent + '_' + colName);
-            }
-        }
-
-        if(!request.manualSelect) selects.push(table+'.*');
-        sql += ' ' + selects.join(', ');
-        sql += ' FROM ' + table;
-
-        for (var i = 0; i < request.parents.length; i++) {
-            var parent = request.parents[i];
-            sql += ' JOIN ' + parent + ' ON ' + parent + '.id = ' + table + '.' + parent + 'Id';
-        }
-
-        var wheresBlock = getWheresBlock(request.sql);
-        if(/(=|>|<|LIKE|REGEXP|BETWEEN|IS|IN|LEAST|COALESCE|INTERVAL|GRETEST|STRCMP)/i.test(wheresBlock)){
-            sql += ' WHERE ' + request.sql;
-        } else {
-            sql += ' '+request.sql;
-        }
-        return sql;
+    function getInsertSql(tayr) {
+        var keysPart = Object.keys(tayr).join(' = ?,') + ' = ?';
+        return 'INSERT INTO ' + tayr.table + ' SET ' + keysPart + ' ON DUPLICATE KEY UPDATE ' + keysPart;
     }
 
-    function mendQueryRequest(data) {
-        var req = data || {};
-        req.action = req.action || 'SELECT';
-        req.sql = req.sql || '';
-        req.select = req.select || '';
-        req.manualSelect = req.manualSelect || false;
-        req.vals = req.vals || [];
-        req.parents = req.parents || [];
-        if(typeof req.parents ===  "string") req.parents = [req.parents];
-        return req;
+    function getSelectSql(table,restSql,vals,more) {
+        var sql = 'SELECT';
+        var selects = (more === undefined || more.fields === undefined) ? '*' : more.fields.join(', ');
+
+        sql += ' ' + selects;
+        sql += ' FROM ' + table;
+
+        var wheresBlock = getWheresBlock(restSql);
+        if(/(=|>|<|LIKE|REGEXP|BETWEEN|IS|IN|LEAST|COALESCE|INTERVAL|GRETEST|STRCMP)/i.test(wheresBlock)){
+            sql += ' WHERE ' + restSql;
+        } else {
+            sql += ' '+restSql;
+        }
+        return sql;
     }
 
     function getWheresBlock(sql) {
@@ -531,36 +554,7 @@ module.exports = function(dbData) {
         return wheresBlock;
     }
 
-    function formatJoins(obj) {
-        var res = {};
-        for(var prop in obj){
-            if(prop.substr(0,2) == 'J_'){
-                var parts = prop.split('_');
-                var parent = parts[1];
-                var col = parts[2];
-                if(!res.hasOwnProperty(parent)) res[parent] = {};
-                res[parent][col] = obj[prop];
-            }else{
-                res[prop] = obj[prop];
-            }
-        }
-        return res;
-    }
-
-    function formatJoinsArray(array) {
-        var res = [];
-        for (var i = 0; i < array.length; i++) {
-            res.push(formatJoins(array[i]));
-        }
-        return res;
-    }
-
-    function getInsertSql(tayr) {
-        var keysPart = Object.keys(tayr).join(' = ?,') + ' = ?';
-        return 'INSERT INTO ' + tayr.table + ' SET ' + keysPart + ' ON DUPLICATE KEY UPDATE ' + keysPart;
-    }
-
-    function isValidTayr(tayr) {
+    T.isValidTayr = function(tayr) {
         return (tayr !== undefined && tayr.table !== undefined && tayr instanceof T.tayr);
     }
 
