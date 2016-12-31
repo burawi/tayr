@@ -525,6 +525,9 @@ module.exports = function(dbData) {
     }
 
     function getSelectSql(table,restSql,vals,more) {
+        if(restSql === undefined){
+            restSql = ' ';
+        }
         var sql = 'SELECT';
         var selects = (more === undefined || more.fields === undefined) ? '*' : more.fields.join(', ');
 
