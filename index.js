@@ -476,7 +476,7 @@ module.exports = function(dbData) {
     }
 
     T.exec = function(sql, vals) {
-        vals = vals || [];
+        vals = giveValsCorrectLength(sql, vals);
 
         return new Promise(function(resolve, reject) {
 
@@ -517,6 +517,16 @@ module.exports = function(dbData) {
             res.push(array[i]);
         }
         return res;
+    }
+
+    function giveValsCorrectLength(sql, vals) {
+        vals = vals || [];
+        var questionMarks = sql.match(/\?/g);
+        var length = (questionMarks != null) ? questionMarks.length : 0;
+        for (var i = vals.length; i < length; i++) {
+            vals[i] = '';
+        }
+        return vals;
     }
 
     function getInsertSql(tayr) {
