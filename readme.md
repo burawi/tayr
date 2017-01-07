@@ -1,3 +1,6 @@
+# OUTDATED
+This documentation is outdated. We're working on a new version
+And We're so Sorry
 # Introduction
 - Feeling that you are are wasting a lot of time writing database schema ?
 - Bored of making migrations for every little change in the database ?

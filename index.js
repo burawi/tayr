@@ -449,14 +449,14 @@ module.exports = function(dbData) {
         });
     }
 
-    T.count = function(table, request) {
+    T.count = function(table, restSql, vals) {
         return new Promise(function(resolve, reject) {
-            request = request || {};
-            request.select = 'COUNT(*)';
-            request.manualSelect = true;
+            var more = {
+                fields: ['COUNT(*)']
+            };
             waitForSchema(function () {
                 if(tableExists(table)){
-                    T.find(table,request).then(function(res) {
+                    T.find(table, restSql, vals, more).then(function(res) {
                         resolve(res[0]['COUNT(*)']);
                     });
                 }else{
