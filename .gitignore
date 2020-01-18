@@ -1,0 +1,22 @@
+#       OS        #
+###################
+.DS_Store
+._
+.idea
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.directory
+*~
+tmp/
+temp/
+
+
+#     Node.js     #
+###################
+node_modules*
+package.json
+package-lock.json
+yarn.lock
+bower.json
+*.log
