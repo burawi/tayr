@@ -1,7 +1,7 @@
 {
   "name": "Tayr",
   "version": "1.0.0-rc",
-  "description": "an easy on-the-fly ORM for NodeJS, inspired by RedBeanPHP ..",
+  "description": "An easy on-the-fly ORM for NodeJS, inspired by RedBeanPHP ..",
   "main": "index.js",
   "scripts": {
     "test": "<should add test script>",
@@ -18,17 +18,14 @@
   "keywords": [
     "tayr",
     "orm",
-    "sql"
+    "sql",
+    "nodejs"
   ],
+  "license": "MIT",
   "author": "Abu Rawi",
   "contributors": [
     "Imed Jaberi <https://github.com/3imed-jaberi>"
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/burawi/tayr/issues"
-  },
-  "homepage": "https://burawi.github.io/tayr/",
   "dependencies": {
     "echasync": "^0.1.3",
     "mysql": "^2.10.2"
@@ -38,9 +35,8 @@
     "istanbul": "^0.4.5",
     "should": "^13.2.3"
   },
-  "engines": {
-    "node": ">= 8",
-    "npm": ">= 5",
-    "yarn": ">= 1"
-  }
+  "bugs": {
+    "url": "https://github.com/burawi/tayr/issues"
+  },
+  "homepage": "https://burawi.github.io/tayr/"
 }
