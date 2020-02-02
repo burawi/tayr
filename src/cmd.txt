@@ -1,0 +1,6 @@
+RUN (for generae new docs): 
+  - npm i jade marked or yarn add jade marked
+  - rm -rf index.html 
+  - cd src
+  - cd scripts
+  - node page-marker.js

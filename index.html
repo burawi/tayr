@@ -1,39 +1,36 @@
-<!DOCTYPE html><html><head><title>Tayr ORM</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Tayr is a NodeJS MySql ORM that needs &quot;zero-config&quot;, It makes the database schema and updates automatically, and let you focus on your code without carrying on models and migrations..."><link rel="icon" href="img/icons/favicon.ico" type="image/ico"><link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Marcellus+SC" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet"><link rel="stylesheet" type="text/css" href="css/style.min.css" media="screen"><link rel="stylesheet" type="text/css" href="css/default.css" media="screen"><link rel="stylesheet" type="text/css" href="css/tomorrow.css" media="screen"><link rel="stylesheet" type="text/css" href="css/print.css" media="print"><link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css"></head><body><header class="mui-appbar mui-frow mui-filled"><div class="mui-fcolumn mui-fend"><img src="img/logo.svg" class="logo"></div><div class="mui-fcolumn mui-fend mui--text-display3">Tayr</div><div class="mui-fcolumn mui-fend mui--text-headline mui--text-primary-light">The ORM that gives you wings</div><div class="flex"></div><a href="https://github.com/burawi/tayr" target="_blank"><div class="social-btn github"><i class="fa fa-github-alt fa-2x"></i></div></a><a href="https://www.facebook.com/TayrORM/" target="_blank"><div class="social-btn facebook"><i class="fa fa-facebook fa-2x"></i></div></a></header><div class="mui-frow"><div id="sidebar"><a href="#01-introduction"><div class="item"> introduction</div></a><a href="#02-create-update"><div class="item"> create update</div></a><a href="#03-read"><div class="item"> read</div></a><a href="#04-delete"><div class="item"> delete</div></a><a href="#05-one-to-many"><div class="item"> one to many</div></a><a href="#06-many-to-many"><div class="item"> many to many</div></a><a href="#07-family-helpers"><div class="item"> family helpers</div></a><a href="#08-Datatypes"><div class="item"> Datatypes</div></a><a href="#09-Helpers"><div class="item"> Helpers</div></a></div><div id="content-wrapper"><div class="mui-frow mui-filled"><section id="main-content"><div id="introduction" class="mui-frow"><img src="img/logo.svg" class="logo"><div class="mui-fcolumn mui-centered"><div class="appname text-display">Tayr</div></div></div><div id="01-introduction" class="chapter"><p>Tayr is an easy on-the-fly MySql ORM for NodeJs developers. No configuration is needed, the schema is made automatically which let you focus on the code without carrying on models, migrations and all that kind of stuff.</p>
+<!DOCTYPE html><html><head><title>Tayr ORM</title><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="description" content="Tayr is a NodeJS MySql ORM that needs &quot;zero-config&quot;, It makes the database schema and updates automatically, and let you focus on your code without carrying on models and migrations..."><link rel="icon" href="assets/img/favicon.ico" type="image/ico"><link href="https://fonts.googleapis.com/css?family=Galada" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Marcellus+SC" rel="stylesheet"><link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet"><link rel="stylesheet" type="text/css" href="assets/css/style.min.css" media="screen"><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></head><body><header class="mui-appbar mui-frow mui-filled"><div class="mui-fcolumn mui-fend"><img src="assets/img/logo.svg" class="logo"></div><div class="mui-fcolumn mui-fend mui--text-display3">Tayr</div><div class="mui-fcolumn mui-fend mui--text-headline mui--text-primary-light">The ORM that gives you wings</div><div class="flex"></div><a href="https://github.com/burawi/tayr" target="_blank"><div class="social-btn github"><i class="fa fa-github-alt fa-2x"></i></div></a></header><div class="mui-frow"><div id="sidebar"><a href="#01-introduction"><div class="item"> introduction</div></a><a href="#02-create-update"><div class="item"> create update</div></a><a href="#03-read"><div class="item"> read</div></a><a href="#04-delete"><div class="item"> delete</div></a><a href="#05-one-to-many"><div class="item"> one to many</div></a><a href="#06-many-to-many"><div class="item"> many to many</div></a><a href="#07-family-helpers"><div class="item"> family helpers</div></a><a href="#08-Datatypes"><div class="item"> Datatypes</div></a><a href="#09-Helpers"><div class="item"> Helpers</div></a></div><div id="content-wrapper"><div class="mui-frow mui-filled"><section id="main-content"><div id="introduction" class="mui-frow"><img src="assets/img/logo.svg" class="logo"><div class="mui-fcolumn mui-centered"><div class="appname text-display">Tayr</div></div></div><div id="01-introduction" class="chapter"><p>Tayr is an easy on-the-fly MySql ORM for NodeJs developers. No configuration is needed, the schema is made automatically which let you focus on the code without carrying on models, migrations and all that kind of stuff.</p>
 <h1 id="usage-example">Usage Example</h1>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> nest = <span class="hljs-built_in">require</span>(<span class="hljs-string">'Tayr'</span>);
-<span class="hljs-keyword">var</span> T = <span class="hljs-keyword">new</span> nest({
-    host: <span class="hljs-string">'hostname'</span>,
-    user: <span class="hljs-string">'username'</span>,
-    password: <span class="hljs-string">'password'</span>,
-    database: <span class="hljs-string">'databaseName'</span>
+<pre><code class="language-javascript">var nest = require(&#39;Tayr&#39;);
+var T = new nest({
+    host: &#39;hostname&#39;,
+    user: &#39;username&#39;,
+    password: &#39;password&#39;,
+    database: &#39;databaseName&#39;
 });
 
-<span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> T.tayr(<span class="hljs-string">'user'</span>,{
-    name: <span class="hljs-string">'Muhamad'</span>,
-    age: <span class="hljs-number">63</span>,
-    registeredAt: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+var user = new T.tayr(&#39;user&#39;,{
+    name: &#39;Muhamad&#39;,
+    age: 63,
+    registeredAt: new Date()
 });
 
-user.store().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
-    <span class="hljs-built_in">console</span>.log(user);
+user.store().then(function(){
+    console.log(user);
 });
-<span class="hljs-comment">//output: { name: 'Muhamad', age: '63', registeredAt: 1467137605631, id: 6 }</span>
-</code></pre>
+//output: { name: &#39;Muhamad&#39;, age: &#39;63&#39;, registeredAt: 1467137605631, id: 6 }</code></pre>
 <h1 id="getting-started">Getting Started</h1>
 <h2 id="install">Install</h2>
 <p>Install the module with:</p>
-<pre><code>npm <span class="hljs-keyword">install</span> Tayr
-</code></pre><h2 id="connect-to-db">Connect to DB</h2>
+<pre><code>npm install Tayr</code></pre><h2 id="connect-to-db">Connect to DB</h2>
 <p>The way to connect to DB is quite similar to mysql module:</p>
-<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> nest = <span class="hljs-built_in">require</span>(<span class="hljs-string">'Tayr'</span>);
-<span class="hljs-keyword">var</span> T = <span class="hljs-keyword">new</span> nest({
-    host: <span class="hljs-string">'hostname'</span>,
-    user: <span class="hljs-string">'username'</span>,
-    password: <span class="hljs-string">'password'</span>,
-    database: <span class="hljs-string">'databaseName'</span>
-});
-</code></pre>
-</div><div id="02-create-update" class="chapter"><h1 id="create-update">Create &amp; Update</h1>
+<pre><code class="language-javascript">var nest = require(&#39;Tayr&#39;);
+var T = new nest({
+    host: &#39;hostname&#39;,
+    user: &#39;username&#39;,
+    password: &#39;password&#39;,
+    database: &#39;databaseName&#39;
+});</code></pre>
+</div><div id="02-create-update" class="chapter"><h1 id="create--update">Create &amp; Update</h1>
 <h2 id="initialize-a-tayr">Initialize a tayr</h2>
 <p>To declare a tayr:</p>
 <ul>
@@ -41,68 +38,63 @@ user.store().then(<span class="hljs-function"><span class="hljs-keyword">functio
 <p>  <strong>Arguments:</strong></p>
 <p>  table: <em>[string] --required</em> the table name in which you want to store the tayr.</p>
 <p>  properties: <em>[object]</em> an object with the tayr properties.</p>
-<pre><code class="lang-javascript">  <span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> T.tayr(<span class="hljs-string">'user'</span>,{
-      name: <span class="hljs-string">'Muhamad'</span>,
-      age: <span class="hljs-number">63</span>,
-      registeredAt: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
-  });
-</code></pre>
+<pre><code class="language-javascript">  var user = new T.tayr(&#39;user&#39;,{
+      name: &#39;Muhamad&#39;,
+      age: 63,
+      registeredAt: new Date()
+  });</code></pre>
 <h3 id="change-tayr-table">Change tayr table</h3>
 <p>You can access and change a tayr table by its <code>table</code> property:</p>
-<pre><code class="lang-javascript">console.<span class="hljs-keyword">log</span>(<span class="hljs-keyword">user</span>.<span class="hljs-built_in">table</span>);
-// output: <span class="hljs-keyword">user</span>
-</code></pre>
+<pre><code class="language-javascript">console.log(user.table);
+// output: user</code></pre>
 </li>
 </ul>
-<h2 id="store-update">Store/Update</h2>
+<h2 id="storeupdate">Store/Update</h2>
 <p>Creating and updating is done using <code>.store()</code> function, if the tayr has an <code>id</code> that exists in the table it will update the row, else it will add a new row and affect an <code>id</code> to the tayr.</p>
-<pre><code class="lang-javascript">    user.store().<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
-        console.<span class="hljs-built_in">log</span>(user);
+<pre><code class="language-javascript">    user.store().then(function(){
+        console.log(user);
     });
-    //output: { <span class="hljs-keyword">name</span>: <span class="hljs-string">'Muhamad'</span>, age: <span class="hljs-string">'63'</span>, registeredAt: <span class="hljs-number">1467137605631</span>, id: <span class="hljs-number">6</span> }
-</code></pre>
+    //output: { name: &#39;Muhamad&#39;, age: &#39;63&#39;, registeredAt: 1467137605631, id: 6 }</code></pre>
 <p>You can now modify the user tayr and store it to update the row:</p>
-<pre><code class="lang-javascript">    user.store().<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
-        user.<span class="hljs-keyword">name</span> = <span class="hljs-string">'Omar'</span>;
-        user.age = <span class="hljs-number">53</span>;
-        user.store(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>{
-            console.<span class="hljs-built_in">log</span>(user);
+<pre><code class="language-javascript">    user.store().then(function(){
+        user.name = &#39;Omar&#39;;
+        user.age = 53;
+        user.store(function(){
+            console.log(user);
         });
     });
-    //output: { <span class="hljs-keyword">name</span>: <span class="hljs-string">'Omar'</span>, age: <span class="hljs-string">'53'</span>, registeredAt: <span class="hljs-number">1467137605631</span>, id: <span class="hljs-number">6</span> }
-</code></pre>
+    //output: { name: &#39;Omar&#39;, age: &#39;53&#39;, registeredAt: 1467137605631, id: 6 }</code></pre>
 <h3 id="store-multiple-tayrs">Store multiple tayrs</h3>
 <p>There are two ways to store multiple tayrs at the same time:</p>
 <ul>
 <li><p><code>storeMultiple(tayrs)</code>: Stores the given tayr.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  tayrs: <em>[arrayOfTayrs]</em> The tayrs to be stored.</p>
-<pre><code class="lang-javascript">  var tayrs = [
-      new T.tayr(<span class="hljs-string">'tag'</span>,{text:<span class="hljs-string">'orm'</span>}),
-      new T.tayr(<span class="hljs-string">'user'</span>,{name:<span class="hljs-string">'AbuBakr'</span>,age:<span class="hljs-number">36</span>}),
-      new T.tayr(<span class="hljs-string">'user'</span>,{name:<span class="hljs-string">'Ussama'</span>,age:<span class="hljs-number">44</span>}),
+<pre><code class="language-javascript">  var tayrs = [
+      new T.tayr(&#39;tag&#39;,{text:&#39;orm&#39;}),
+      new T.tayr(&#39;user&#39;,{name:&#39;AbuBakr&#39;,age:36}),
+      new T.tayr(&#39;user&#39;,{name:&#39;Ussama&#39;,age:44}),
   ];
-  T.storeMultiple(tayrs).<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span>(res){
+  T.storeMultiple(tayrs).then(function(res){
       console.log(res);
   });
-  //output: [ { text: <span class="hljs-string">'orm'</span>, id: <span class="hljs-number">1</span> }, { name: <span class="hljs-string">'AbuBakr'</span>, age: <span class="hljs-number">36</span>, id: <span class="hljs-number">7</span> }, { name: <span class="hljs-string">'Ussama'</span>, age: <span class="hljs-number">44</span>, id: <span class="hljs-number">8</span> } ]
-</code></pre>
+  //output: [ { text: &#39;orm&#39;, id: 1 }, { name: &#39;AbuBakr&#39;, age: 36, id: 7 }, { name: &#39;Ussama&#39;, age: 44, id: 8 } ]</code></pre>
 </li>
 <li><p><code>storeRows(table,array)</code>: This function is faster but it stores the rows in one table, that means that the tayrs can&#39;t have different tables:</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  table: <em>[string]</em> The table in which tayrs will be stored.</p>
 <p>  array: <em>[array]</em> The objects to be stored.</p>
-<pre><code class="lang-javascript">      <span class="hljs-keyword">var</span> comments = [
-          {text: <span class="hljs-string">'I like it'</span>,posted: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()},
-          {text: <span class="hljs-string">'wonderful'</span>,posted: <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()},
+<pre><code class="language-javascript">      var comments = [
+          {text: &#39;I like it&#39;,posted: new Date()},
+          {text: &#39;wonderful&#39;,posted: new Date()},
       ];
-      T.storeRows(<span class="hljs-string">'comment'</span>,comments).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>)</span>{
-          <span class="hljs-built_in">console</span>.log(res);
+      T.storeRows(&#39;comment&#39;,comments).then(function(res){
+          console.log(res);
       });
-      <span class="hljs-comment">// output: [ { text: 'I like it', posted: 1467397814583, id: 1 },</span>
-      <span class="hljs-comment">// { text: 'wonderful', posted: 1467397814583, id: 2 } ]</span>
-</code></pre>
-<p><em>Note That: In Both Functions if any row exists it will be updated</em></p>
+      // output: [ { text: &#39;I like it&#39;, posted: 1467397814583, id: 1 },
+      // { text: &#39;wonderful&#39;, posted: 1467397814583, id: 2 } ]</code></pre>
+</li>
+<li><p>Note That: In Both Functions if any row exists it will be updated*</p>
 </li>
 </ul>
 </div><div id="03-read" class="chapter"><h1 id="read">Read</h1>
@@ -112,11 +104,10 @@ user.store().then(<span class="hljs-function"><span class="hljs-keyword">functio
 <p>  <strong>Arguments:</strong></p>
 <p>  table: <em>[string] --required</em> The table of the wanted tayr.</p>
 <p>  id: <em>[integer] --required</em> The id of the wanted tayr.</p>
-<pre><code class="lang-javascript">      T.<span class="hljs-built_in">load</span>(<span class="hljs-string">'user'</span>,<span class="hljs-number">6</span>).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(user)</span></span>{
+<pre><code class="language-javascript">      T.load(&#39;user&#39;,6).then(function(user){
           console.log(user);
       });
-      // output: { name: <span class="hljs-string">'Omar'</span>, age: <span class="hljs-string">'53'</span>, registeredAt: <span class="hljs-number">1467137605631</span>, id: <span class="hljs-number">6</span> }
-</code></pre>
+      // output: { name: &#39;Omar&#39;, age: &#39;53&#39;, registeredAt: 1467137605631, id: 6 }</code></pre>
 <p>  <em>If no record found it returns false</em></p>
 </li>
 <li><p><code>find(table,data)</code>: this function returns an array of tayrs from a table.</p>
@@ -124,295 +115,281 @@ user.store().then(<span class="hljs-function"><span class="hljs-keyword">functio
 <p>  table: <em>[string] --required</em> The table of the wanted tayr.</p>
 <p>  data: <em>[object]</em></p>
 <ul>
-<li>sql: <em>[string]</em> All the sql you want to put after &quot;WHERE&quot; <em>(It&#39;s recommended to not put variables in this string, write <code>?</code> instead)</em></li>
-<li>vals: <em>[array|simple]</em> The values that will replace the <code>?</code>s in order</li>
-<li>parents: <em>[array|string]</em> The parents to join with the tayr</li>
-<li>select: <em>[string]</em> String added after &quot;SELECT&quot;</li>
+<li><p>sql: <em>[string]</em> All the sql you want to put after &quot;WHERE&quot; <em>(It&#39;s recommended to not put variables in this string, write <code>?</code> instead)</em></p>
+</li>
+<li><p>vals: <em>[array|simple]</em> The values that will replace the <code>?</code>s in order</p>
+</li>
+<li><p>parents: <em>[array|string]</em> The parents to join with the tayr</p>
+</li>
+<li><p>select: <em>[string]</em> String added after &quot;SELECT&quot;</p>
+</li>
 <li><p>manualSelect: <em>[boolean]</em> If set to true request will not select all table columns automatically <em>|| Default: children+&#39;s&#39;</em></p>
-<pre><code class="lang-javascript">  T.find(<span class="hljs-string">'user'</span>,{sql:<span class="hljs-string">'age &gt; ?'</span>,vals: <span class="hljs-number">40</span>}).<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span>(users) {
+<pre><code class="language-javascript">  T.find(&#39;user&#39;,{sql:&#39;age &gt; ?&#39;,vals: 40}).then(function(users) {
       console.log(users);
   });
-  // output: [ { id: <span class="hljs-number">6</span>, name: <span class="hljs-string">'Omar'</span>, age: <span class="hljs-string">'53'</span>, registeredAt: <span class="hljs-number">2147483647</span> },
-  // { id: <span class="hljs-number">8</span>, name: <span class="hljs-string">'Ussama'</span>, age: <span class="hljs-string">'44'</span>, registeredAt: null } ]
-</code></pre>
+  // output: [ { id: 6, name: &#39;Omar&#39;, age: &#39;53&#39;, registeredAt: 2147483647 },
+  // { id: 8, name: &#39;Ussama&#39;, age: &#39;44&#39;, registeredAt: null } ]</code></pre>
 <p>If you want to <strong>find all</strong> rows, don&#39;t put conditions:</p>
-<pre><code class="lang-javascript">  T.find(<span class="hljs-string">'user'</span>).<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span>(users) {
+<pre><code class="language-javascript">  T.find(&#39;user&#39;).then(function(users) {
       console.log(users);
   });
-  // output: [ { id: <span class="hljs-number">6</span>, name: <span class="hljs-string">'Omar'</span>, age: <span class="hljs-string">'53'</span>, registeredAt: <span class="hljs-number">2147483647</span> },
-  // { id: <span class="hljs-number">7</span>, name: <span class="hljs-string">'AbuBakr'</span>, age: <span class="hljs-string">'36'</span>, registeredAt: null },
-  // { id: <span class="hljs-number">8</span>, name: <span class="hljs-string">'Ussama'</span>, age: <span class="hljs-string">'44'</span>, registeredAt: null } ]
-</code></pre>
+  // output: [ { id: 6, name: &#39;Omar&#39;, age: &#39;53&#39;, registeredAt: 2147483647 },
+  // { id: 7, name: &#39;AbuBakr&#39;, age: &#39;36&#39;, registeredAt: null },
+  // { id: 8, name: &#39;Ussama&#39;, age: &#39;44&#39;, registeredAt: null } ]</code></pre>
 <p>To get only some columns:</p>
-<pre><code class="lang-javascript">  <span class="hljs-selector-tag">T</span><span class="hljs-selector-class">.find</span>(<span class="hljs-string">'user'</span>,{<span class="hljs-attribute">sql</span>:<span class="hljs-string">'age &gt; ?'</span>,<span class="hljs-attribute">vals</span>: <span class="hljs-number">40</span>,<span class="hljs-attribute">select</span>: <span class="hljs-string">'name,id'</span>,<span class="hljs-attribute">manualSelect</span>: true})<span class="hljs-selector-class">.then</span>(function(users) {
-      console<span class="hljs-selector-class">.log</span>(users);
+<pre><code class="language-javascript">  T.find(&#39;user&#39;,{sql:&#39;age &gt; ?&#39;,vals: 40,select: &#39;name,id&#39;,manualSelect: true}).then(function(users) {
+      console.log(users);
   });
-  <span class="hljs-comment">// output: [ { id: 6, name: 'Omar' },</span>
-  <span class="hljs-comment">// { id: 8, name: 'Ussama' } ]</span>
-</code></pre>
+  // output: [ { id: 6, name: &#39;Omar&#39; },
+  // { id: 8, name: &#39;Ussama&#39; } ]</code></pre>
 </li>
 </ul>
 </li>
 <li><p><code>findOne(table,data)</code>: this function works the same as <code>find</code> but returns only one tayr:</p>
-<pre><code class="lang-javascript">      <span class="hljs-selector-tag">T</span><span class="hljs-selector-class">.findOne</span>(<span class="hljs-string">'user'</span>,{<span class="hljs-attribute">sql</span>:<span class="hljs-string">'age &gt; ?'</span>,<span class="hljs-attribute">vals</span>: <span class="hljs-number">40</span>})<span class="hljs-selector-class">.then</span>(function(user) {
-          console<span class="hljs-selector-class">.log</span>(user);
+<pre><code class="language-javascript">      T.findOne(&#39;user&#39;,{sql:&#39;age &gt; ?&#39;,vals: 40}).then(function(user) {
+          console.log(user);
       });
-      <span class="hljs-comment">// output: { id: 6, name: 'Omar', age: '53', registeredAt: 2147483647 }</span>
-</code></pre>
+      // output: { id: 6, name: &#39;Omar&#39;, age: &#39;53&#39;, registeredAt: 2147483647 }</code></pre>
 </li>
 </ul>
 </div><div id="04-delete" class="chapter"><h1 id="delete">Delete</h1>
 <p>There are two ways to delete records from DB:</p>
 <ul>
 <li><p><code>.delete()</code>: this function deletes the tayr:</p>
-<pre><code class="lang-javascript">      <span class="hljs-comment">// user = { id: 6, name: 'Omar', age: '53', registeredAt: 2147483647 }</span>
-      <span class="hljs-selector-tag">user</span><span class="hljs-selector-class">.delete</span>()<span class="hljs-selector-class">.then</span>(function () {
-          console<span class="hljs-selector-class">.log</span>(<span class="hljs-string">'done!'</span>);
+<pre><code class="language-javascript">      // user = { id: 6, name: &#39;Omar&#39;, age: &#39;53&#39;, registeredAt: 2147483647 }
+      user.delete().then(function () {
+          console.log(&#39;done!&#39;);
       });
-      <span class="hljs-comment">// And it's done(gone)!</span>
-</code></pre>
+      // And it&#39;s done(gone)!</code></pre>
 </li>
 <li><p><code>delete(table,data)</code>: this function deletes from a table.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  table: <em>[string] --required</em> The wanted table.</p>
 <p>  data: <em>[object]</em></p>
 <ul>
-<li>sql: <em>[string]</em> All the sql you want to put after &quot;WHERE&quot; <em>(It&#39;s recommended to not put variables in this string, write <code>?</code> instead)</em></li>
+<li><p>sql: <em>[string]</em> All the sql you want to put after &quot;WHERE&quot; <em>(It&#39;s recommended to not put variables in this string, write <code>?</code> instead)</em></p>
+</li>
 <li><p>vals: <em>[array|simple]</em> The values that will replace the <code>?</code>s in order</p>
-<pre><code class="lang-javascript">  <span class="hljs-selector-tag">T</span><span class="hljs-selector-class">.delete</span>(<span class="hljs-string">'user'</span>,{<span class="hljs-attribute">sql</span>: <span class="hljs-string">'age &gt; ?'</span>,<span class="hljs-attribute">vals</span>: <span class="hljs-number">40</span>},<span class="hljs-selector-tag">function</span>() {
-      <span class="hljs-selector-tag">T</span><span class="hljs-selector-class">.find</span>(<span class="hljs-string">'user'</span>,function(users) {
-          console<span class="hljs-selector-class">.log</span>(users);
+<pre><code class="language-javascript">  T.delete(&#39;user&#39;,{sql: &#39;age &gt; ?&#39;,vals: 40},function() {
+      T.find(&#39;user&#39;,function(users) {
+          console.log(users);
       });
   });
-  <span class="hljs-comment">// output: [ { id: 7, name: 'AbuBakr', age: '36', registeredAt: null } ]</span>
-</code></pre>
+  // output: [ { id: 7, name: &#39;AbuBakr&#39;, age: &#39;36&#39;, registeredAt: null } ]</code></pre>
 </li>
 </ul>
 </li>
 </ul>
-</div><div id="05-one-to-many" class="chapter"><h1 id="one-to-many-parent-children-">One to many (Parent &amp; Children)</h1>
+</div><div id="05-one-to-many" class="chapter"><h1 id="one-to-many-parent--children">One to many (Parent &amp; Children)</h1>
 <p>You can add a property <code>tableName+&#39;Id&#39;</code> manually to make a tayr belong to another tayr. Or you can use this function:</p>
 <ul>
 <li><p><code>.setParent(parent)</code>: Sets a parent to tayr.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  parent: <em>[tayr] --required</em> The tayr to be set as parent.</p>
-<pre><code class="lang-javascript">      <span class="hljs-comment">// comment = { id: 1, text: 'I like it', posted: 2147483647 }</span>
-      <span class="hljs-comment">// user = { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }</span>
-      <span class="hljs-selector-tag">comment</span><span class="hljs-selector-class">.setParent</span>(user)<span class="hljs-selector-class">.then</span>(function() {
-          console<span class="hljs-selector-class">.log</span>(comment);
+<pre><code class="language-javascript">      // comment = { id: 1, text: &#39;I like it&#39;, posted: 2147483647 }
+      // user = { id: 7, name: &#39;AbuBakr&#39;, age: &#39;36&#39;, registeredAt: null }
+      comment.setParent(user).then(function() {
+          console.log(comment);
       });
-      <span class="hljs-comment">// output: { id: 1, text: 'I like it', posted: 2147483647, userId: 7 }</span>
-</code></pre>
+      // output: { id: 1, text: &#39;I like it&#39;, posted: 2147483647, userId: 7 }</code></pre>
 <p>And you can get the parent using this:</p>
 </li>
 <li><p><code>.getParent(table)</code>: Returns the parent tayr.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  table: <em>[string] --required</em> The parent tayr table.</p>
-<pre><code class="lang-javascript">      <span class="hljs-comment">// comment = { id: 1, text: 'I like it', posted: 2147483647, userId: 7 }</span>
-      <span class="hljs-selector-tag">comment</span><span class="hljs-selector-class">.getParent</span>(<span class="hljs-string">'user'</span>)<span class="hljs-selector-class">.then</span>(function(user) {
-          console<span class="hljs-selector-class">.log</span>(user);
+<pre><code class="language-javascript">      // comment = { id: 1, text: &#39;I like it&#39;, posted: 2147483647, userId: 7 }
+      comment.getParent(&#39;user&#39;).then(function(user) {
+          console.log(user);
       });
-      <span class="hljs-comment">// output: { id: 7, name: 'AbuBakr', age: '36', registeredAt: null }</span>
-</code></pre>
+      // output: { id: 7, name: &#39;AbuBakr&#39;, age: &#39;36&#39;, registeredAt: null }</code></pre>
 <p>If you have the parent and you want to append children to it do that:</p>
 </li>
 <li><p><code>.addChildren(table,array)</code>: Adds children to tayr.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  table: <em>[string] --required</em> The children&#39;s table.</p>
 <p>  array: <em>[array] --required</em>  The objects to be stored as children.</p>
-<pre><code class="lang-javascript">  // user = { id: <span class="hljs-number">7</span>, name: <span class="hljs-string">'AbuBakr'</span>, age: <span class="hljs-string">'36'</span>, registeredAt: null }
-  // comments = [ { id: <span class="hljs-number">1</span>, text: <span class="hljs-string">'I like it'</span>, posted: <span class="hljs-number">2147483647</span>, userId: <span class="hljs-number">7</span> },
-  // { id: <span class="hljs-number">2</span>, text: <span class="hljs-string">'wonderful'</span>, posted: <span class="hljs-number">2147483647</span>, userId: null } ]
-  user.addChildren(<span class="hljs-string">'comment'</span>,comments).<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span>(res) {
+<pre><code class="language-javascript">  // user = { id: 7, name: &#39;AbuBakr&#39;, age: &#39;36&#39;, registeredAt: null }
+  // comments = [ { id: 1, text: &#39;I like it&#39;, posted: 2147483647, userId: 7 },
+  // { id: 2, text: &#39;wonderful&#39;, posted: 2147483647, userId: null } ]
+  user.addChildren(&#39;comment&#39;,comments).then(function(res) {
       comments = res;
       console.log(comments);
   });
-  // output: [ { id: <span class="hljs-number">0</span>, text: <span class="hljs-string">'I like it'</span>, posted: <span class="hljs-number">2147483647</span>, userId: <span class="hljs-number">7</span> },
-  // { id: <span class="hljs-number">2</span>, text: <span class="hljs-string">'wonderful'</span>, posted: <span class="hljs-number">2147483647</span>, userId: <span class="hljs-number">7</span> } ]
-</code></pre>
+  // output: [ { id: 0, text: &#39;I like it&#39;, posted: 2147483647, userId: 7 },
+  // { id: 2, text: &#39;wonderful&#39;, posted: 2147483647, userId: 7 } ]</code></pre>
 <p>And to get children:</p>
 </li>
 <li><p><code>getChildren(table)</code>: Returns children of tayr.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  table: <em>[string] --required</em>  The children&#39;s table.</p>
-<pre><code class="lang-javascript">      // user = { id: <span class="hljs-number">7</span>, name: <span class="hljs-string">'AbuBakr'</span>, age: <span class="hljs-string">'36'</span>, registeredAt: null }
-      user.getChildren(<span class="hljs-string">'comment'</span>).<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span>(comments) {
+<pre><code class="language-javascript">      // user = { id: 7, name: &#39;AbuBakr&#39;, age: &#39;36&#39;, registeredAt: null }
+      user.getChildren(&#39;comment&#39;).then(function(comments) {
           console.log(comments);
       });
-      // output: [ { id: <span class="hljs-number">0</span>, text: <span class="hljs-string">'I like it'</span>, posted: <span class="hljs-number">2147483647</span>, userId: <span class="hljs-number">7</span> },
-      // { id: <span class="hljs-number">2</span>, text: <span class="hljs-string">'wonderful'</span>, posted: <span class="hljs-number">2147483647</span>, userId: <span class="hljs-number">7</span> } ]
-</code></pre>
+      // output: [ { id: 0, text: &#39;I like it&#39;, posted: 2147483647, userId: 7 },
+      // { id: 2, text: &#39;wonderful&#39;, posted: 2147483647, userId: 7 } ]</code></pre>
 </li>
 </ul>
-</div><div id="06-many-to-many" class="chapter"><h1 id="many-to-many-cousins-">Many to many (Cousins)</h1>
+</div><div id="06-many-to-many" class="chapter"><h1 id="many-to-many-cousins">Many to many (Cousins)</h1>
 <p><em>For the rest of the docs, we used an adapted copy of sakila database.</em></p>
 <p>In Tayr the many to many related tables are called cousins:</p>
 <ul>
 <li><p><code>.getCousins(cousinsTable)</code>: Returns the cousins list.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  cousinsTable: <em>[string] --required</em> The cousins table name.</p>
-<pre><code class="lang-javascript">  T.<span class="hljs-built_in">load</span>(<span class="hljs-string">'film'</span>,<span class="hljs-number">790</span>).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(film)</span></span> {
-      film.getCousins(<span class="hljs-string">'actor'</span>).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(actors)</span></span> {
+<pre><code class="language-javascript">  T.load(&#39;film&#39;,790).then(function (film) {
+      film.getCousins(&#39;actor&#39;).then(function (actors) {
           console.log(actors);
       });
   });
-  // output: [ { id: <span class="hljs-number">28</span>, first_name: <span class="hljs-string">'WOODY'</span>, last_name: <span class="hljs-string">'HOFFMAN'</span> },
-  // { id: <span class="hljs-number">47</span>, first_name: <span class="hljs-string">'JULIA'</span>, last_name: <span class="hljs-string">'BARRYMORE'</span> },
-  // { id: <span class="hljs-number">55</span>, first_name: <span class="hljs-string">'FAY'</span>, last_name: <span class="hljs-string">'KILMER'</span> } ]
-</code></pre>
+  // output: [ { id: 28, first_name: &#39;WOODY&#39;, last_name: &#39;HOFFMAN&#39; },
+  // { id: 47, first_name: &#39;JULIA&#39;, last_name: &#39;BARRYMORE&#39; },
+  // { id: 55, first_name: &#39;FAY&#39;, last_name: &#39;KILMER&#39; } ]</code></pre>
 </li>
 <li><p><code>.setCousins(cousinsTable,newCousins)</code>: Replace all the current cousins by the given cousins in array.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  cousinsTable: <em>[string] --required</em> The cousins table name.</p>
 <p>  newCousins: <em>[array] --required</em> An array of objects(not required to be tayrs).</p>
-<pre><code class="lang-javascript">  T.<span class="hljs-built_in">load</span>(<span class="hljs-string">'film'</span>,<span class="hljs-number">790</span>).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(film)</span></span> {
+<pre><code class="language-javascript">  T.load(&#39;film&#39;,790).then(function (film) {
       var array = [
-          { first_name: <span class="hljs-string">'JOHN'</span>, last_name: <span class="hljs-string">'CENA'</span> },
-          { first_name: <span class="hljs-string">'GARRY'</span>, last_name: <span class="hljs-string">'LEWIS'</span> },
+          { first_name: &#39;JOHN&#39;, last_name: &#39;CENA&#39; },
+          { first_name: &#39;GARRY&#39;, last_name: &#39;LEWIS&#39; },
       ];
-      film.setCousins(<span class="hljs-string">'actor'</span>,array).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(actors)</span></span> {
+      film.setCousins(&#39;actor&#39;,array).then(function (actors) {
           console.log(actors);
       });
   });
-  // output: [ { id: <span class="hljs-number">214</span>, first_name: <span class="hljs-string">'GARRY'</span>, last_name: <span class="hljs-string">'LEWIS'</span> },
-  // { id: <span class="hljs-number">213</span>, first_name: <span class="hljs-string">'JOHN'</span>, last_name: <span class="hljs-string">'CENA'</span> } ]
-</code></pre>
+  // output: [ { id: 214, first_name: &#39;GARRY&#39;, last_name: &#39;LEWIS&#39; },
+  // { id: 213, first_name: &#39;JOHN&#39;, last_name: &#39;CENA&#39; } ]</code></pre>
 </li>
 <li><p><code>.addCousins(cousinsTable,newCousins)</code>: Works the same as <code>.setCousins</code> but without deleting the recorded cousins.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  cousinsTable: <em>[string] --required</em> The cousins table name.</p>
 <p>  newCousins: <em>[array] --required</em> An array of objects(not required to be tayrs).</p>
-<pre><code class="lang-javascript">  T.<span class="hljs-built_in">load</span>(<span class="hljs-string">'film'</span>,<span class="hljs-number">790</span>).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(film)</span></span> {
+<pre><code class="language-javascript">  T.load(&#39;film&#39;,790).then(function (film) {
       var array = [
-          { first_name: <span class="hljs-string">'PETER'</span>, last_name: <span class="hljs-string">'MALCOLM'</span> },
-          { first_name: <span class="hljs-string">'SAMUEL'</span>, last_name: <span class="hljs-string">'HADINBOURG'</span> },
+          { first_name: &#39;PETER&#39;, last_name: &#39;MALCOLM&#39; },
+          { first_name: &#39;SAMUEL&#39;, last_name: &#39;HADINBOURG&#39; },
       ];
-      film.addCousins(<span class="hljs-string">'actor'</span>,array).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(newActors)</span></span> {
-          film.getCousins(<span class="hljs-string">'actor'</span>).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(actors)</span></span> {
+      film.addCousins(&#39;actor&#39;,array).then(function (newActors) {
+          film.getCousins(&#39;actor&#39;).then(function (actors) {
               console.log(actors);
           });
       });
   });
-  // output: [ { id: <span class="hljs-number">215</span>, first_name: <span class="hljs-string">'PETER'</span>, last_name: <span class="hljs-string">'MALCOLM'</span> },
-  // { id: <span class="hljs-number">214</span>, first_name: <span class="hljs-string">'GARRY'</span>, last_name: <span class="hljs-string">'LEWIS'</span> },
-  // { id: <span class="hljs-number">213</span>, first_name: <span class="hljs-string">'JOHN'</span>, last_name: <span class="hljs-string">'CENA'</span> },
-  // { id: <span class="hljs-number">216</span>, first_name: <span class="hljs-string">'SAMUEL'</span>, last_name: <span class="hljs-string">'HADINBOURG'</span> } ]
-</code></pre>
+  // output: [ { id: 215, first_name: &#39;PETER&#39;, last_name: &#39;MALCOLM&#39; },
+  // { id: 214, first_name: &#39;GARRY&#39;, last_name: &#39;LEWIS&#39; },
+  // { id: 213, first_name: &#39;JOHN&#39;, last_name: &#39;CENA&#39; },
+  // { id: 216, first_name: &#39;SAMUEL&#39;, last_name: &#39;HADINBOURG&#39; } ]</code></pre>
 </li>
 <li><p><code>.addCousin(cousin)</code>: Add a single cousin to a tayr.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  cousin: <em>[tayr] --required</em> The cousin to be added.</p>
-<pre><code class="lang-javascript">  T.<span class="hljs-built_in">load</span>(<span class="hljs-string">'film'</span>,<span class="hljs-number">790</span>).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(film)</span></span> {
-      var actor = new T.tayr(<span class="hljs-string">'actor'</span>,{ first_name: <span class="hljs-string">'FRED'</span>, last_name: <span class="hljs-string">'HAMILTON'</span> });
-      film.addCousin(actor).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span></span> {
-          film.getCousins(<span class="hljs-string">'actor'</span>).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(actors)</span></span> {
+<pre><code class="language-javascript">  T.load(&#39;film&#39;,790).then(function (film) {
+      var actor = new T.tayr(&#39;actor&#39;,{ first_name: &#39;FRED&#39;, last_name: &#39;HAMILTON&#39; });
+      film.addCousin(actor).then(function () {
+          film.getCousins(&#39;actor&#39;).then(function (actors) {
               console.log(actors);
           });
       });
   });
-  // output: [ { id: <span class="hljs-number">215</span>, first_name: <span class="hljs-string">'PETER'</span>, last_name: <span class="hljs-string">'MALCOLM'</span> },
-  // { id: <span class="hljs-number">214</span>, first_name: <span class="hljs-string">'GARRY'</span>, last_name: <span class="hljs-string">'LEWIS'</span> },
-  // { id: <span class="hljs-number">213</span>, first_name: <span class="hljs-string">'JOHN'</span>, last_name: <span class="hljs-string">'CENA'</span> },
-  // { id: <span class="hljs-number">216</span>, first_name: <span class="hljs-string">'SAMUEL'</span>, last_name: <span class="hljs-string">'HADINBOURG'</span> },
-  // { id: <span class="hljs-number">217</span>, first_name: <span class="hljs-string">'FRED'</span>, last_name: <span class="hljs-string">'HAMILTON'</span> } ]
-</code></pre>
+  // output: [ { id: 215, first_name: &#39;PETER&#39;, last_name: &#39;MALCOLM&#39; },
+  // { id: 214, first_name: &#39;GARRY&#39;, last_name: &#39;LEWIS&#39; },
+  // { id: 213, first_name: &#39;JOHN&#39;, last_name: &#39;CENA&#39; },
+  // { id: 216, first_name: &#39;SAMUEL&#39;, last_name: &#39;HADINBOURG&#39; },
+  // { id: 217, first_name: &#39;FRED&#39;, last_name: &#39;HAMILTON&#39; } ]</code></pre>
 </li>
 <li><p><code>.removeCousin(cousin)</code>: Removes the cousinity(relation) between the two tayrs.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  cousin: <em>[tayr] --required</em> The cousin to be unrelated.</p>
-<pre><code class="lang-javascript">  T.<span class="hljs-built_in">load</span>(<span class="hljs-string">'film'</span>,<span class="hljs-number">790</span>).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(film)</span></span> {
-      T.<span class="hljs-built_in">load</span>(<span class="hljs-string">'actor'</span>,<span class="hljs-number">217</span>).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(actor)</span></span> {
-          film.removeCousin(actor).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span></span> {
-              film.getCousins(<span class="hljs-string">'actor'</span>).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(actors)</span></span> {
+<pre><code class="language-javascript">  T.load(&#39;film&#39;,790).then(function (film) {
+      T.load(&#39;actor&#39;,217).then(function (actor) {
+          film.removeCousin(actor).then(function () {
+              film.getCousins(&#39;actor&#39;).then(function (actors) {
                   console.log(actors);
               });
           });
       });
   });
-  // output: [ { id: <span class="hljs-number">215</span>, first_name: <span class="hljs-string">'PETER'</span>, last_name: <span class="hljs-string">'MALCOLM'</span> },
-  // { id: <span class="hljs-number">214</span>, first_name: <span class="hljs-string">'GARRY'</span>, last_name: <span class="hljs-string">'LEWIS'</span> },
-  // { id: <span class="hljs-number">213</span>, first_name: <span class="hljs-string">'JOHN'</span>, last_name: <span class="hljs-string">'CENA'</span> },
-  // { id: <span class="hljs-number">216</span>, first_name: <span class="hljs-string">'SAMUEL'</span>, last_name: <span class="hljs-string">'HADINBOURG'</span> } ]
-</code></pre>
+  // output: [ { id: 215, first_name: &#39;PETER&#39;, last_name: &#39;MALCOLM&#39; },
+  // { id: 214, first_name: &#39;GARRY&#39;, last_name: &#39;LEWIS&#39; },
+  // { id: 213, first_name: &#39;JOHN&#39;, last_name: &#39;CENA&#39; },
+  // { id: 216, first_name: &#39;SAMUEL&#39;, last_name: &#39;HADINBOURG&#39; } ]</code></pre>
 </li>
 </ul>
 <p><em>Note: In case you want to know whats the intermediate table name between two tables you can use this:</em></p>
-<pre><code class="lang-javascript">T.getUncleTableName(table1,table2);
-// <span class="hljs-keyword">for</span> table1 = <span class="hljs-symbol">'film</span>' <span class="hljs-keyword">and</span> table2 = <span class="hljs-symbol">'actor</span>'
-// it returns <span class="hljs-symbol">'actor_film</span>'
-</code></pre>
+<pre><code class="language-javascript">T.getUncleTableName(table1,table2);
+// for table1 = &#39;film&#39; and table2 = &#39;actor&#39;
+// it returns &#39;actor_film&#39;</code></pre>
 </div><div id="07-family-helpers" class="chapter"><h1 id="family-helpers">Family Helpers</h1>
 <ul>
 <li><p><strong>findByParent</strong>: Finds rows according to parent&#39;s attribute.</p>
 <p>  <em>This is not a function, but it&#39;s a feature that can be unkown by some people</em></p>
-<pre><code class="lang-javascript">  <span class="hljs-selector-tag">T</span><span class="hljs-selector-class">.find</span>(<span class="hljs-string">'city'</span>,{<span class="hljs-attribute">sql</span>:<span class="hljs-string">'country.country = ?'</span>,<span class="hljs-attribute">vals</span>:<span class="hljs-string">'India'</span>,<span class="hljs-attribute">parents</span>:<span class="hljs-string">'country'</span>})<span class="hljs-selector-class">.then</span>(function (cities) {
-      console<span class="hljs-selector-class">.log</span>(cities);
-  })
-</code></pre>
+<pre><code class="language-javascript">  T.find(&#39;city&#39;,{sql:&#39;country.country = ?&#39;,vals:&#39;India&#39;,parents:&#39;country&#39;}).then(function (cities) {
+      console.log(cities);
+  })</code></pre>
 </li>
 <li><p><code>findByFecundity(table,data)</code>: Finds rows ordered by children&#39;s number.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  table: <em>[string] --required</em> The table wanted.</p>
 <p>  data: <em>[object]</em></p>
 <ul>
-<li>children: <em>[string] --required</em> The children table name</li>
-<li>as: <em>[string]</em> The property name that contains the children&#39;s number <em>|| Default: children+&#39;s&#39;</em></li>
-<li>limit: <em>[integer]</em> The limit number of returned rows</li>
-<li>poorest: <em>[boolean]</em> If true the order will be ascending <em>|| Default: false</em></li>
+<li><p>children: <em>[string] --required</em> The children table name</p>
+</li>
+<li><p>as: <em>[string]</em> The property name that contains the children&#39;s number <em>|| Default: children+&#39;s&#39;</em></p>
+</li>
+<li><p>limit: <em>[integer]</em> The limit number of returned rows</p>
+</li>
+<li><p>poorest: <em>[boolean]</em> If true the order will be ascending <em>|| Default: false</em></p>
+</li>
 <li><p>tayrize: <em>[boolean]</em> Force result as tayrs</p>
-<pre><code class="lang-javascript"><span class="hljs-selector-tag">T</span><span class="hljs-selector-class">.findByFecundity</span>(<span class="hljs-string">'country'</span>,{<span class="hljs-attribute">children</span>:<span class="hljs-string">'city'</span>,<span class="hljs-attribute">limit</span>:<span class="hljs-number">3</span>})<span class="hljs-selector-class">.then</span>(function (countries) {
-  console<span class="hljs-selector-class">.log</span>(countries);
+<pre><code class="language-javascript">T.findByFecundity(&#39;country&#39;,{children:&#39;city&#39;,limit:3}).then(function (countries) {
+  console.log(countries);
 });
-<span class="hljs-comment">// output: [ RowDataPacket { id: 44, country: 'India', citys: 60 },</span>
-<span class="hljs-comment">// RowDataPacket { id: 23, country: 'China', citys: 53 },</span>
-<span class="hljs-comment">// RowDataPacket { id: 103, country: 'United States', citys: 35 } ]</span>
-</code></pre>
+// output: [ RowDataPacket { id: 44, country: &#39;India&#39;, citys: 60 },
+// RowDataPacket { id: 23, country: &#39;China&#39;, citys: 53 },
+// RowDataPacket { id: 103, country: &#39;United States&#39;, citys: 35 } ]</code></pre>
 <p>To inverse the order:</p>
-<pre><code class="lang-javascript"><span class="hljs-selector-tag">T</span><span class="hljs-selector-class">.findByFecundity</span>(<span class="hljs-string">'country'</span>,{<span class="hljs-attribute">children</span>:<span class="hljs-string">'city'</span>,<span class="hljs-attribute">limit</span>:<span class="hljs-number">3</span>,<span class="hljs-attribute">order</span>:<span class="hljs-string">'less'</span>})<span class="hljs-selector-class">.then</span>(function (countries) {
-  console<span class="hljs-selector-class">.log</span>(countries);
+<pre><code class="language-javascript">T.findByFecundity(&#39;country&#39;,{children:&#39;city&#39;,limit:3,order:&#39;less&#39;}).then(function (countries) {
+  console.log(countries);
 });
-<span class="hljs-comment">// output:  [ RowDataPacket { id: 84, country: 'Slovakia', citys: 1 },</span>
-<span class="hljs-comment">// RowDataPacket { id: 81, country: 'Saint Vincent and the Grenadines', citys: 1 },</span>
-<span class="hljs-comment">// RowDataPacket { id: 11, country: 'Bahrain', citys: 1 } ]</span>
-</code></pre>
+// output:  [ RowDataPacket { id: 84, country: &#39;Slovakia&#39;, citys: 1 },
+// RowDataPacket { id: 81, country: &#39;Saint Vincent and the Grenadines&#39;, citys: 1 },
+// RowDataPacket { id: 11, country: &#39;Bahrain&#39;, citys: 1 } ]</code></pre>
 <p>With <code>as</code>:</p>
-<pre><code class="lang-javascript">  <span class="hljs-selector-tag">T</span><span class="hljs-selector-class">.findByFecundity</span>(<span class="hljs-string">'country'</span>,{<span class="hljs-attribute">children</span>:<span class="hljs-string">'city'</span>,<span class="hljs-attribute">as</span>:<span class="hljs-string">'cities'</span>,<span class="hljs-attribute">limit</span>:<span class="hljs-number">3</span>})<span class="hljs-selector-class">.then</span>(function (countries) {
-      console<span class="hljs-selector-class">.log</span>(countries);
+<pre><code class="language-javascript">  T.findByFecundity(&#39;country&#39;,{children:&#39;city&#39;,as:&#39;cities&#39;,limit:3}).then(function (countries) {
+      console.log(countries);
   });
-  <span class="hljs-comment">// output: [ RowDataPacket { id: 44, country: 'India', cities: 60 },</span>
-  <span class="hljs-comment">// RowDataPacket { id: 23, country: 'China', cities: 53 },</span>
-  <span class="hljs-comment">// RowDataPacket { id: 103, country: 'United States', cities: 35 } ]</span>
-</code></pre>
+  // output: [ RowDataPacket { id: 44, country: &#39;India&#39;, cities: 60 },
+  // RowDataPacket { id: 23, country: &#39;China&#39;, cities: 53 },
+  // RowDataPacket { id: 103, country: &#39;United States&#39;, cities: 35 } ]</code></pre>
 <p>If you don&#39;t want the children&#39; number property to be returned:</p>
-<pre><code class="lang-javascript"><span class="hljs-selector-tag">T</span><span class="hljs-selector-class">.findByFecundity</span>(<span class="hljs-string">'country'</span>,{<span class="hljs-attribute">children</span>:<span class="hljs-string">'city'</span>,<span class="hljs-attribute">as</span>:<span class="hljs-string">''</span>,<span class="hljs-attribute">limit</span>:<span class="hljs-number">3</span>})<span class="hljs-selector-class">.then</span>(function (countries) {
-  console<span class="hljs-selector-class">.log</span>(countries);
+<pre><code class="language-javascript">T.findByFecundity(&#39;country&#39;,{children:&#39;city&#39;,as:&#39;&#39;,limit:3}).then(function (countries) {
+  console.log(countries);
 });
-<span class="hljs-comment">// output: [ { id: 44, country: 'India' },</span>
-<span class="hljs-comment">// { id: 23, country: 'China' },</span>
-<span class="hljs-comment">// { id: 103, country: 'United States' } ]</span>
-</code></pre>
+// output: [ { id: 44, country: &#39;India&#39; },
+// { id: 23, country: &#39;China&#39; },
+// { id: 103, country: &#39;United States&#39; } ]</code></pre>
 <p>You can see now that the returned result is an array of tayrs, that was not the case before, because the children&#39;s number property does not exist in the original table. But if you want to force result to be an array of tayrs even if the children&#39;s number property is returned:</p>
-<pre><code class="lang-javascript"><span class="hljs-selector-tag">T</span><span class="hljs-selector-class">.findByFecundity</span>(<span class="hljs-string">'country'</span>,{<span class="hljs-attribute">children</span>:<span class="hljs-string">'city'</span>,<span class="hljs-attribute">as</span>:<span class="hljs-string">'cities'</span>,<span class="hljs-attribute">limit</span>:<span class="hljs-number">3</span>,<span class="hljs-attribute">tayrize</span>:true})<span class="hljs-selector-class">.then</span>(function (countries) {
-  console<span class="hljs-selector-class">.log</span>(countries);
+<pre><code class="language-javascript">T.findByFecundity(&#39;country&#39;,{children:&#39;city&#39;,as:&#39;cities&#39;,limit:3,tayrize:true}).then(function (countries) {
+  console.log(countries);
 });
-<span class="hljs-comment">// output: [ { id: 44, country: 'India', cities: 60 },</span>
-<span class="hljs-comment">// { id: 23, country: 'China', cities: 53 },</span>
-<span class="hljs-comment">// { id: 103, country: 'United States', cities: 35 } ]</span>
-</code></pre>
+// output: [ { id: 44, country: &#39;India&#39;, cities: 60 },
+// { id: 23, country: &#39;China&#39;, cities: 53 },
+// { id: 103, country: &#39;United States&#39;, cities: 35 } ]</code></pre>
 </li>
 </ul>
 </li>
 <li><p><code>findByCousinity(table,data)</code>: Finds rows ordered by cousins&#39;s number.</p>
 <p>  <strong>Arguments:</strong></p>
 <p>  <em>(Same as <code>findByFecundity</code>)</em> But, write <code>data.cousin</code> instead of <code>data.children</code>.</p>
-<pre><code class="lang-javascript">  T.findByCousinity(<span class="hljs-string">'category'</span>,{cousin:<span class="hljs-string">'film'</span>,limit:<span class="hljs-number">4</span>}).<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span> (categories) {
+<pre><code class="language-javascript">  T.findByCousinity(&#39;category&#39;,{cousin:&#39;film&#39;,limit:4}).then(function (categories) {
       console.log(categories);
   });
-  // output: [ RowDataPacket { id: <span class="hljs-number">15</span>, name: <span class="hljs-string">'Sports'</span>, films: <span class="hljs-number">74</span> },
-  // RowDataPacket { id: <span class="hljs-number">9</span>, name: <span class="hljs-string">'Foreign'</span>, films: <span class="hljs-number">73</span> },
-  // RowDataPacket { id: <span class="hljs-number">8</span>, name: <span class="hljs-string">'Family'</span>, films: <span class="hljs-number">69</span> },
-  // RowDataPacket { id: <span class="hljs-number">6</span>, name: <span class="hljs-string">'Documentary'</span>, films: <span class="hljs-number">68</span> } ]
-</code></pre>
+  // output: [ RowDataPacket { id: 15, name: &#39;Sports&#39;, films: 74 },
+  // RowDataPacket { id: 9, name: &#39;Foreign&#39;, films: 73 },
+  // RowDataPacket { id: 8, name: &#39;Family&#39;, films: 69 },
+  // RowDataPacket { id: 6, name: &#39;Documentary&#39;, films: 68 } ]</code></pre>
 </li>
 </ul>
 </div><div id="08-Datatypes" class="chapter"><h1 id="datatypes">Datatypes</h1>
@@ -432,13 +409,13 @@ user.store().then(<span class="hljs-function"><span class="hljs-keyword">functio
 <p>  table: <em>[string] --required</em> The table from which it will count.</p>
 <p>  data: <em>[object]</em></p>
 <ul>
-<li>sql: <em>[string]</em> Filter</li>
+<li><p>sql: <em>[string]</em> Filter</p>
+</li>
 <li><p>vals: <em>[array|simple]</em>  Values that will replace <code>?</code> in <code>sql</code> property</p>
-<pre><code class="lang-javascript"><span class="hljs-selector-tag">T</span><span class="hljs-selector-class">.count</span>(<span class="hljs-string">'film'</span>,{<span class="hljs-attribute">sql</span>: <span class="hljs-string">'length &gt; ?'</span>,<span class="hljs-attribute">vals</span>: <span class="hljs-number">60</span>})<span class="hljs-selector-class">.then</span>(function(res) {
-  console<span class="hljs-selector-class">.log</span>(res);
+<pre><code class="language-javascript">T.count(&#39;film&#39;,{sql: &#39;length &gt; ?&#39;,vals: 60}).then(function(res) {
+  console.log(res);
 });
-<span class="hljs-comment">// output: 896</span>
-</code></pre>
+// output: 896</code></pre>
 </li>
 </ul>
 </li>
@@ -449,15 +426,14 @@ user.store().then(<span class="hljs-function"><span class="hljs-keyword">functio
 <p>  <strong>Arguments:</strong></p>
 <p>  sql: <em>[string] --required</em> SQL code.</p>
 <p>  vals: <em>[array|simple]</em>  Values that will replace <code>?</code> in <code>sql</code> property</p>
-<pre><code class="lang-javascript">  T.exec(<span class="hljs-string">'SELECT title FROM film WHERE length &lt; ?'</span>,<span class="hljs-number">47</span>).<span class="hljs-keyword">then</span>(<span class="hljs-keyword">function</span>(res) {
+<pre><code class="language-javascript">  T.exec(&#39;SELECT title FROM film WHERE length &lt; ?&#39;,47).then(function(res) {
       console.log(res);
   });
-  // output: [ RowDataPacket { title: <span class="hljs-string">'ALIEN CENTER'</span> },
-  // RowDataPacket { title: <span class="hljs-string">'IRON MOON'</span> },
-  // RowDataPacket { title: <span class="hljs-string">'KWAI HOMEWARD'</span> },
-  // RowDataPacket { title: <span class="hljs-string">'LABYRINTH LEAGUE'</span> },
-  // RowDataPacket { title: <span class="hljs-string">'RIDGEMONT SUBMARINE'</span> } ]
-</code></pre>
+  // output: [ RowDataPacket { title: &#39;ALIEN CENTER&#39; },
+  // RowDataPacket { title: &#39;IRON MOON&#39; },
+  // RowDataPacket { title: &#39;KWAI HOMEWARD&#39; },
+  // RowDataPacket { title: &#39;LABYRINTH LEAGUE&#39; },
+  // RowDataPacket { title: &#39;RIDGEMONT SUBMARINE&#39; } ]</code></pre>
 </li>
 </ul>
 <h2 id="converting-to-tayrs">Converting to tayrs</h2>
@@ -466,15 +442,14 @@ user.store().then(<span class="hljs-function"><span class="hljs-keyword">functio
 <p>  <strong>Arguments:</strong></p>
 <p>  table: <em>[string] --required</em> The table of the future tayrs.</p>
 <p>  array: <em>[array] --required</em> The array of object to be transformed.</p>
-<pre><code class="lang-javascript">      var comments = [
-          {<span class="hljs-string">text:</span> <span class="hljs-string">'First comment!'</span>, <span class="hljs-string">postedAt:</span> <span class="hljs-keyword">new</span> Date()},
-          {<span class="hljs-string">text:</span> <span class="hljs-string">'Stop these stupid comments please!'</span>, <span class="hljs-string">postedAt:</span> <span class="hljs-keyword">new</span> Date()},
-          {<span class="hljs-string">text:</span> <span class="hljs-string">'Keep Calm'</span>, <span class="hljs-string">postedAt:</span> <span class="hljs-keyword">new</span> Date()},
+<pre><code class="language-javascript">      var comments = [
+          {text: &#39;First comment!&#39;, postedAt: new Date()},
+          {text: &#39;Stop these stupid comments please!&#39;, postedAt: new Date()},
+          {text: &#39;Keep Calm&#39;, postedAt: new Date()},
       ];
-      console.log(comments[<span class="hljs-number">0</span>].table); <span class="hljs-comment">// output: undefined</span>
-      comments = T.arrayToTayrs(<span class="hljs-string">'comment'</span>,comments);
-      console.log(comments[<span class="hljs-number">0</span>].table); <span class="hljs-comment">// output: comments</span>
-</code></pre>
+      console.log(comments[0].table); // output: undefined
+      comments = T.arrayToTayrs(&#39;comment&#39;,comments);
+      console.log(comments[0].table); // output: comments</code></pre>
 </li>
 </ul>
 </div></section></div></div></div></body></html>
